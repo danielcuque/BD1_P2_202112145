@@ -1,7 +1,5 @@
 USE Proyecto2;
 
-/* Procedures to handle data */
-
 DROP PROCEDURE IF EXISTS registrarEstudiante;
 DELIMITER //
 CREATE PROCEDURE registrarEstudiante(
@@ -31,6 +29,35 @@ END;
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS crearCarrera;
+DELIMITER $$
+CREATE PROCEDURE crearCarrera(
+    IN in_nombre VARCHAR(50)
+)
+BEGIN
+    DECLARE nombre_carrera INT;
+
+
+    SELECT COUNT(*) INTO nombre_carrera FROM Carrera WHERE nombre = in_nombre;
+
+    IF nombre_carrera = 0 THEN
+        START TRANSACTION;
+
+        INSERT INTO Carrera(nombre) VALUES (in_nombre);
+
+        COMMIT;
+
+        SELECT 'Carrera creada exitosamente' AS message;
+        SELECT * FROM Carrera;
+    ELSE
+        SET @custom_message = CONCAT('La carrera ', in_nombre, ' ya existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+END;
+$$
+DELIMITER ;
+
+
 DROP PROCEDURE IF EXISTS registrarDocente;
 DROP PROCEDURE IF EXISTS crearCurso;
 DROP PROCEDURE IF EXISTS habilitarCurso;

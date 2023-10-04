@@ -1,5 +1,13 @@
 USE Proyecto2;
 
+-- Calls to create a new career
+
+CALL crearCarrera('Ingenieria en Ciencias y Sistemas');
+CALL crearCarrera('Ingenieria Industrial');
+CALL crearCarrera('Ingenieria Mecanica');
+CALL crearCarrera('Ingenieria Civil');
+
+/*
 CALL registrarEstudiante(
     202112145,
     'Daniel',
@@ -11,3 +19,4 @@ CALL registrarEstudiante(
     3024465830102,
     1
 )
+*/
