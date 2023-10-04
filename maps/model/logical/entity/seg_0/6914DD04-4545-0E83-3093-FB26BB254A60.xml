@@ -1,0 +1,158 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6914DD04-4545-0E83-3093-FB26BB254A60" name="CursoHabilitado">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:19:00 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="F52A778E-6480-5DE0-8F69-0CCFA7A3C0F8">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:48:18 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_curso" id="DD3EE48F-7679-4C43-BAA7-5DDF498102F8">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:48:27 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ciclo" id="5363AE5C-ECB9-A8A3-7176-94E7FF87838E">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:48:35 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_docente" id="C4BAE0DC-2922-E133-F123-FAF91EDF8A72">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:48:43 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="cupo_maximo" id="7EC5E542-E282-860D-32D8-75B0ACE84E9F">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:48:57 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="seccion" id="D28E79E2-B946-AAFA-38EE-A13293672F7F">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:49:10 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="year" id="73CDA6F1-9B5E-BAB6-355B-FF1A9C5A44B3">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:49:18 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="estudiantes_asignados" id="7D9C973D-5E42-6F2E-4CA3-1B8ABB334123">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:49:29 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_curso1" id="3AB995B8-A8D8-183E-C927-93F8FA98E9B9">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:58:57 UTC</createdTime>
+<generatorID>B2067C56-C295-A5E1-F89E-24A9DE041988</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<referedAttribute>52455FDB-EA57-C684-54E1-43DC07E926FF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_siif" id="6C5DF6CF-A71E-28D5-B0DB-709FE84CF082">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:01 UTC</createdTime>
+<generatorID>C4627FDE-8181-9779-4207-AAED0A3B28B9</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<referedAttribute>253538D7-3574-8226-DDEF-76F75B0061AC</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D6F9A7F7-1CA4-5059-ABFD-6D860A5C6016" name="CursoHabilitado PK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:48:22 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>F52A778E-6480-5DE0-8F69-0CCFA7A3C0F8</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

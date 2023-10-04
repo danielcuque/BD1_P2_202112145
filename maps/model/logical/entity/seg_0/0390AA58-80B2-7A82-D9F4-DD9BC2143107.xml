@@ -1,0 +1,93 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="0390AA58-80B2-7A82-D9F4-DD9BC2143107" name="HistorialTransaccion">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:19:24 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="AC163964-C6A9-8CA1-31FA-B154B1AC4CCB">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:03:47 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="fecha" id="DE9FF8C9-B6CF-9942-E85F-03E0E1D9D847">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:04:10 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="descripcion" id="3335A855-B60F-94EF-85A5-8B20E3050DD7">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:04:17 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tipo" id="60E27C8C-AE8B-AC06-92E1-21CA7C8D110F">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:04:25 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre_tabla" id="A47B1BF2-6DBC-F0C6-4ADC-33ED59B9AB97">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:04:33 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="2128B310-C167-1C90-FE53-9CE9626083BB" name="HistorialTransaccion PK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:04:54 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>AC163964-C6A9-8CA1-31FA-B154B1AC4CCB</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

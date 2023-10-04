@@ -1,0 +1,119 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7848EBF6-64B6-8A3A-62A0-15B9A4E21E58" name="Curso">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>1A1D5C35-01E2-2373-9D2C-DEA10376F647</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_curso" id="E13CB351-A42C-F475-3B3A-F9CDDDDD8834">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>52455FDB-EA57-C684-54E1-43DC07E926FF</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="93496D24-169B-F239-65C9-857F361FEB2A">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>B353D279-2734-EB53-AC7D-7E3EA9CFC1BA</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="creditos_necesarios" id="2CE7AC18-3AA6-B6E1-C638-97FBF3142D59">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>50D350C6-A749-64A2-2117-A59E05F7878C</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="creditos_otorgados" id="F28D918A-22E4-134F-3883-D79AB5898135">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>EC38D217-4679-D9AC-0A83-83944A6D85D8</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_carrera" id="A5D38D4A-4E49-D3B7-B1CD-8632B0D4380F">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>54360BB1-9537-5F33-80CC-D94685ED83FB</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="opcional" id="2E6F369D-55F4-363B-17A7-B14B5DFD28B8">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>01A05063-C818-C5ED-DEF2-460278AD2E5A</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Carrerav2_id_carrera" id="950EE70C-FC6B-E9B7-8A99-E328B33BAC06">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>7245C79C-5314-F16D-A2DA-0E594D6D2507</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3524AF2B-28C0-9458-F972-086C1F51BFAA" referredColumn="4EDBF71C-30BF-598C-4FD3-090430340277"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A3897782-EE2C-BF13-8580-E9C52FCF1DF7" name="Cursov1_PK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>EC79F1A4-D146-DBBE-E5A1-B6AA1461978B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E13CB351-A42C-F475-3B3A-F9CDDDDD8834"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A3CEC9BF-AE7D-0F76-DDDE-209B513A196F" name="Cursov2_Carrerav2_FK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>CDE75491-88AF-BE88-C16A-B578A849384B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="950EE70C-FC6B-E9B7-8A99-E328B33BAC06"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

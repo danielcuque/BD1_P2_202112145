@@ -1,0 +1,118 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="444A4C59-29E3-40C9-2D43-DCA854551E7B" name="Actas">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>092926EC-1406-BB15-CC67-62F415CB94DB</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_acta" id="8C996E5D-A48E-893C-4688-DC2D2D0A90C9">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>A029E7C3-47A8-550E-5D92-B4D240B1E1B5</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_curso" id="CAC26DD9-355B-9B6F-818E-0D9A5FF3FEC9">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>0C196F6E-9FC1-72A4-AB85-3D214CC52B9A</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ciclo" id="C11D8975-EBEB-1EBF-6C74-B91790D70CCA">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>EFA3DBC5-D346-88AE-F631-605D8F992E48</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="seccion" id="D1333F30-C615-DACF-CDD2-6AEA97F4C29D">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>B98C30E1-021D-A706-806D-8218123DAED3</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="fecha_generado" id="E7AEC1C6-6401-9B53-3A47-88C99C03DCC3">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>148D8A46-83AB-1DB7-686D-31C6DA87764D</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Cursov2_id_curso" id="7350CB78-F193-7DBA-CC50-74A3BD9378AD">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>1B94402C-DCA3-0DDB-AB89-312D7DDBAFA5</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9DEFDB57-65AA-0712-22D4-5D376AFD7AB4" referredColumn="E13CB351-A42C-F475-3B3A-F9CDDDDD8834"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="923D4E60-6CA3-8B1A-5B8C-F50849C7D7A3" name="Actasv1_PK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>66D57813-96D2-2E36-CB95-2ED9C2352F7F</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8C996E5D-A48E-893C-4688-DC2D2D0A90C9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A5A4BEFF-8768-06F6-36B6-A0A7500B3A1B" name="Actasv1__IDX">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>2D9790B6-EFF6-5548-96C7-5F7FED80F76F</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="7350CB78-F193-7DBA-CC50-74A3BD9378AD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8D9D8A77-AEF6-769D-6BC1-EF724DE82BBC" name="Actasv2_Cursov2_FK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:02:08 UTC</createdTime>
+<generatorID>2D9790B6-EFF6-5548-96C7-5F7FED80F76F</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7350CB78-F193-7DBA-CC50-74A3BD9378AD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

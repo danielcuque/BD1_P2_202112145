@@ -1,0 +1,106 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="DD17AE17-1020-61E9-E6D6-1C478EC5348B" name="Notas">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:19:18 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="C23C6634-7DD5-995E-7907-7E5A1077A852">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:52:35 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="carnet" id="8A60C1F9-C02A-D1E6-3E37-F35EBA549B3F">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:52:41 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_curso" id="2ECA0A83-6EE1-D8F6-9B90-7EFE9601B513">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:52:52 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ciclo" id="DC263FCC-56C5-5967-C0D3-0D6A6847FA69">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:53:01 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="seccion" id="B899FE84-3C60-6102-BF76-FB0A9DB643B5">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:53:09 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nota" id="EB384624-A211-98D8-44C7-250327205707">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:53:17 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="B180A5C8-77E6-71B5-2C1A-AE6EFB75644F" name="Notas PK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:53:35 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>C23C6634-7DD5-995E-7907-7E5A1077A852</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

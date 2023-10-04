@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4F152582-5859-6429-8B93-897589C14CC3" name="HistorialTransaccion">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:05:26 UTC</createdTime>
+<generatorID>0390AA58-80B2-7A82-D9F4-DD9BC2143107</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="6BAB0C99-38A0-3196-F881-5E809919E2B0">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:05:26 UTC</createdTime>
+<generatorID>AC163964-C6A9-8CA1-31FA-B154B1AC4CCB</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="fecha" id="4ED2F5A3-38FC-3F35-D1A9-6BC8F9DF4229">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:05:26 UTC</createdTime>
+<generatorID>DE9FF8C9-B6CF-9942-E85F-03E0E1D9D847</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="descripcion" id="441CBFB9-1CE0-7228-67E8-4828C9B58996">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:05:26 UTC</createdTime>
+<generatorID>3335A855-B60F-94EF-85A5-8B20E3050DD7</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tipo" id="672B56E9-B263-E52A-C4A7-0AB795D92A9E">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:05:26 UTC</createdTime>
+<generatorID>60E27C8C-AE8B-AC06-92E1-21CA7C8D110F</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre_tabla" id="774A45C9-E00F-0E5C-5870-519C6FC64340">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:05:26 UTC</createdTime>
+<generatorID>A47B1BF2-6DBC-F0C6-4ADC-33ED59B9AB97</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D9FB80E3-77AA-D44B-29ED-A999ACAC11FB" name="HistorialTransaccion_PK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:05:26 UTC</createdTime>
+<generatorID>2128B310-C167-1C90-FE53-9CE9626083BB</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6BAB0C99-38A0-3196-F881-5E809919E2B0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

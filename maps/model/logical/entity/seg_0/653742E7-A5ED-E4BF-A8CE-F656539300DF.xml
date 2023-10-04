@@ -1,0 +1,130 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="653742E7-A5ED-E4BF-A8CE-F656539300DF" name="Docente">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:18:52 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_siif" id="253538D7-3574-8226-DDEF-76F75B0061AC">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:43:24 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombres" id="077F47D5-3FFA-110A-4836-5275FF3F0485">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:43:44 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="apellidos" id="65198889-2B74-9A74-6EA2-7C833A69D47D">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:43:50 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="fecha_nacimiento" id="73341D3C-4A21-375B-90E0-8D2B1B6BBBA0">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:43:58 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="correo" id="3ABB72DF-4653-2E30-8971-5D4613D796CF">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:44:12 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="telefono" id="8FB7465F-FF90-5479-B0C7-C75232293F9A">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:44:19 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="direccion" id="CFB6F07F-52AE-96D0-0293-0FC3DCDEA5ED">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:44:38 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dpi" id="360FE06F-607B-F30E-173D-291922D95BBE">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:44:44 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="2C06D075-F5C5-5080-2001-5EBBF32E1736" name="Docente PK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:43:43 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>253538D7-3574-8226-DDEF-76F75B0061AC</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

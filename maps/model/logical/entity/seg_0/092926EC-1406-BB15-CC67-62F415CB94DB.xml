@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="092926EC-1406-BB15-CC67-62F415CB94DB" name="Actas">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:19:21 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_acta" id="A029E7C3-47A8-550E-5D92-B4D240B1E1B5">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:54:27 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_curso" id="0C196F6E-9FC1-72A4-AB85-3D214CC52B9A">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:54:38 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ciclo" id="EFA3DBC5-D346-88AE-F631-605D8F992E48">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:54:47 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="seccion" id="B98C30E1-021D-A706-806D-8218123DAED3">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:54:56 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="fecha_generado" id="148D8A46-83AB-1DB7-686D-31C6DA87764D">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:55:09 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_curso1" id="1B94402C-DCA3-0DDB-AB89-312D7DDBAFA5">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-04 00:01:33 UTC</createdTime>
+<generatorID>2D9790B6-EFF6-5548-96C7-5F7FED80F76F</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="true"/>
+</engineerTo>
+<referedAttribute>52455FDB-EA57-C684-54E1-43DC07E926FF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="66D57813-96D2-2E36-CB95-2ED9C2352F7F" name="Actas PK">
+<createdBy>danie</createdBy>
+<createdTime>2023-10-03 23:54:33 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="1F4C2B1C-C406-5559-F156-A43D87506D81" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A029E7C3-47A8-550E-5D92-B4D240B1E1B5</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
