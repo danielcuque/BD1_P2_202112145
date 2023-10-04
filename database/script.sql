@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS Estudiante(
     direccion VARCHAR(200) NOT NULL,
     dpi BIGINT(13) NOT NULL,
     id_carrera INT NOT NULL,
-    creditos INT NOT NULL
+    creditos INT NOT NULL,
+    fecha_creacion TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Carrera(
