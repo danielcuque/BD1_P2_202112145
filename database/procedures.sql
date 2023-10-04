@@ -15,6 +15,15 @@ CREATE PROCEDURE registrarEstudiante(
 )
 BEGIN
 
+    DECLARE existe_carrera INT;
+
+    SELECT COUNT(*) INTO existe_carrera FROM Carrera WHERE id_carrera = in_id_carrera;
+
+    IF existe_carrera = 0 THEN
+        SET @custom_message = CONCAT('La carrera con id ', in_id_carrera, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
     START TRANSACTION;
 
     INSERT INTO Estudiante(carnet, nombre, apellido, fecha_nacimiento, correo, telefono, direccion, dpi, id_carrera, creditos, fecha_creacion)
@@ -23,6 +32,7 @@ BEGIN
     COMMIT;
 
     SELECT 'Estudiante creado exitosamente' AS message;
+    SELECT * FROM Estudiante;
 
 END;
 //
@@ -43,6 +53,11 @@ BEGIN
         START TRANSACTION;
 
         INSERT INTO Carrera(nombre) VALUES (in_nombre);
+
+        IF NOT SafeInput(in_nombre) THEN
+            ROLLBACK;
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error en el nombre de la carrera';
+        END IF;
 
         COMMIT;
 
