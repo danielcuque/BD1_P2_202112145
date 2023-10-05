@@ -246,5 +246,3 @@ CALL habilitarCurso(
     110,
     'B'
 );
-
-SELECT * FROM CursoHabilitado

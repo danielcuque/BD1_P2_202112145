@@ -66,9 +66,7 @@ CREATE TABLE IF NOT EXISTS HorarioCurso(
 CREATE TABLE IF NOT EXISTS AsignacionCurso(
     id_asignacion_curso INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_curso_habilitado INT NOT NULL,
-    carnet_estudiante BIGINT(9) NOT NULL,
-    ciclo VARCHAR(2) NOT NULL,
-    seccion CHAR NOT NULL
+    carnet_estudiante BIGINT(9) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Nota(

@@ -174,12 +174,103 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS agregarHorario;
 DELIMITER $$
+CREATE PROCEDURE agregarHorario(
+    IN in_id_curso_habilitado INT,
+    IN in_dia_semana INT,
+    IN in_horario VARCHAR(15)
+)
 BEGIN
-    
+    IF NOT CursoHabilitadoExisteID(in_id_curso_habilitado) THEN
+        SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso_habilitado, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF in_dia_semana > 7 OR in_dia_semana < 1 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El día de la semana no es válido';
+    END IF;
+
+    IF NOT ValidarHorario(in_horario) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El horario no es válido';
+    END IF;
+
+    START TRANSACTION;
+    INSERT INTO HorarioCurso(id_curso_habilitado,dia, horario)
+    VALUES (in_id_curso_habilitado, in_dia_semana, in_horario);
 END;
 $$
 DELIMITER ;
 
+/*
+    Verificar que el alumno exista
+    Verificar que el alumno no este asignado al mismo curso, en la misma seccion, en el mismo ciclo
+    Verificar que el alumno tenga los creditos necesarios para inscribirse al curso
+    Verificar que la clase a la que el alumno se quiere inscribir no este llena
+    Verificar que el curso exista
+    Verificar que el curso pertecezca a la carrera del alumno o area comun
+*/
+
 DROP PROCEDURE IF EXISTS asignarCurso;
+DELIMITER $$
+CREATE PROCEDURE asignarCurso(
+    IN in_id_curso INT,
+    IN in_ciclo VARCHAR(50),
+    IN in_seccion CHAR(1),
+    IN in_carnet BIGINT(9)
+)
+BEGIN
+    IF NOT EstudianteExiste(in_carnet) THEN
+        SET @custom_message = CONCAT('El estudiante con carnet ', in_carnet, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT CursoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT CursoHabilitadoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT SeccionExisteID(in_seccion, in_id_curso) THEN
+        SET @custom_message = CONCAT('La sección ', in_seccion, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT ValidarCiclo(in_ciclo) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ciclo no es válido';
+    END IF;
+
+    IF CursoHabilitadoLleno(in_id_curso, in_seccion, in_ciclo) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El curso habilitado esta lleno';
+    END IF;
+
+    IF EstudianteInscrito(in_id_curso, in_seccion, in_ciclo, in_carnet) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante ya esta asignado a este curso';
+    END IF;
+
+    IF NOT EstudianteTieneCreditos(in_carnet, in_id_curso) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante no tiene los creditos necesarios para inscribirse a este curso';
+    END IF;
+
+    IF NOT EstudiantePerteneceCarrera(in_carnet, in_id_curso) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante no pertenece a la carrera de este curso';
+    END IF;
+
+    START TRANSACTION;
+
+    INSERT INTO AsignacionCurso(id_asignacion_curso, id_curso_habilitado, carnet_estudiante)
+    VALUES (NULL, in_id_curso, in_carnet);
+
+    UPDATE CursoHabilitado
+    SET cantidad_inscritos = cantidad_inscritos + 1
+    WHERE id_curso_habilitado = in_id_curso;
+
+    COMMIT;
+
+END; $$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS desasignarCurso;
 DROP PROCEDURE IF EXISTS ingresarNota;
