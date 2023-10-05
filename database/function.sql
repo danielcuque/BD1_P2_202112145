@@ -119,16 +119,30 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS SeccionExisteID;
 DELIMITER $$
-CREATE FUNCTION SeccionExisteID (param_id_seccion CHAR) RETURNS BOOLEAN
+CREATE FUNCTION SeccionExisteID (param_seccion CHAR, param_id_curso INT) RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
     DECLARE EXISTE BOOLEAN DEFAULT FALSE;
-    IF (SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = param_id_seccion) > 0 THEN
+    IF(SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = param_id_curso AND seccion = param_seccion) > 0 THEN
         SET EXISTE = TRUE;
     END IF;
     RETURN EXISTE;
 END;
 
+$$
+DELIMITER ;
+
+
+DROP FUNCTION IF EXISTS FormatIDCarrera;
+DELIMITER $$
+CREATE FUNCTION FormatIDCarrera (param_id_carrera INT) RETURNS INT
+DETERMINISTIC
+-- Return id+1
+BEGIN
+    DECLARE id_carrera INT DEFAULT 0;
+    SET id_carrera = param_id_carrera + 1;
+    RETURN id_carrera;
+END;
 $$
 DELIMITER ;
 

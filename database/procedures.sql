@@ -15,11 +15,11 @@ CREATE PROCEDURE registrarEstudiante(
 )
 BEGIN
 
-    DECLARE existe_carrera INT;
+    DECLARE idCarrera INT DEFAULT 1;
 
-    SELECT COUNT(*) INTO existe_carrera FROM Carrera WHERE id_carrera = in_id_carrera;
+    SET idCarrera = FormatIDCarrera(in_id_carrera);
 
-    IF existe_carrera = 0 THEN
+    IF NOT CarreraExisteID(idCarrera) THEN
         SET @custom_message = CONCAT('La carrera con id ', in_id_carrera, ' no existe');
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
     END IF;
@@ -31,7 +31,7 @@ BEGIN
     START TRANSACTION;
 
     INSERT INTO Estudiante(carnet, nombre, apellido, fecha_nacimiento, correo, telefono, direccion, dpi, id_carrera, creditos, fecha_creacion)
-    VALUES (in_carnet, in_nombre, in_apellido, in_fecha_nacimiento, in_correo, in_telefono, in_direccion, in_dpi, in_id_carrera, 0, NOW());
+    VALUES (in_carnet, in_nombre, in_apellido, in_fecha_nacimiento, in_correo, in_telefono, in_direccion, in_dpi, idCarrera, 0, NOW());
 
     COMMIT;
 
@@ -49,25 +49,16 @@ CREATE PROCEDURE crearCarrera(
 )
 BEGIN
 
-    IF NOT CarreraExisteNombre(in_nombre) OR NOT IsAlpha(in_nombre) THEN
-        START TRANSACTION;
-
-        INSERT INTO Carrera(nombre) VALUES (in_nombre);
-
-        IF NOT SafeInput(in_nombre) THEN
-            ROLLBACK;
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error en el nombre de la carrera';
-        END IF;
-
-        COMMIT;
-
-        SELECT 'Carrera creada exitosamente' AS message;
-        SELECT * FROM Carrera;
-    ELSE
-        SET @custom_message = CONCAT('La carrera ', in_nombre, ' ya existe');
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    IF CarreraExisteNombre(in_nombre) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La carrera ya existe';
     END IF;
 
+    START TRANSACTION;
+
+    INSERT INTO Carrera(nombre)
+    VALUES (in_nombre);
+
+    COMMIT;
 END;
 $$
 DELIMITER ;
@@ -115,7 +106,10 @@ CREATE PROCEDURE crearCurso(
 )
 
 BEGIN
-    IF NOT CarreraExisteID(in_id_carrera) THEN
+    DECLARE idCarrera INT DEFAULT 1;
+    SET idCarrera = FormatIDCarrera(in_id_carrera);
+
+    IF NOT CarreraExisteID(idCarrera) THEN
         SET @custom_message = CONCAT('La carrera con id ', in_id_carrera, ' no existe');
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
     END IF;
@@ -128,14 +122,10 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Los créditos otorgados deben ser un entero positivo';
     END IF;
 
-    IF NOT SafeInput(in_nombre) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error en el nombre del curso';
-    END IF;
-
     START TRANSACTION;
 
     INSERT INTO Curso(id_curso, nombre, creditos_necesarios, creditos_otorgados, id_carrera, es_obligatorio)
-    VALUES (in_id_curso, in_nombre, in_creditos_necesarios, in_creditos_otorgados, in_id_carrera, _es_obligatorio);
+    VALUES (in_id_curso, in_nombre, in_creditos_necesarios, in_creditos_otorgados, idCarrera, _es_obligatorio);
 
     COMMIT;
 
@@ -155,8 +145,6 @@ CREATE PROCEDURE habilitarCurso(
 
 BEGIN
 
-    -- Validate that section is not already taken
-
     IF NOT CursoExisteID(in_id_curso) THEN
         SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' no existe');
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
@@ -170,13 +158,13 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El cupo máximo debe ser un entero positivo';
     END IF;
 
-    IF SeccionExisteID(in_seccion) THEN
+    IF SeccionExisteID(in_seccion, in_id_curso) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La sección ya existe';
     END IF;
 
     START TRANSACTION ;
 
-    INSERT INTO CursoHabilitado(id_curso, ciclo, id_docente, cupo_maximo, seccion, fecha_creacion, cantidad_inscritos)
+    INSERT INTO CursoHabilitado(id_curso, ciclo, registro_siif, cupo_maximo, seccion, fecha_creacion, cantidad_inscritos)
     VALUES (in_id_curso, in_ciclo, in_id_docente, in_cupo_maximo, in_seccion, NOW(), 0);
 
     COMMIT;
@@ -185,6 +173,13 @@ $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS agregarHorario;
+DELIMITER $$
+BEGIN
+    
+END;
+$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS asignarCurso;
 DROP PROCEDURE IF EXISTS desasignarCurso;
 DROP PROCEDURE IF EXISTS ingresarNota;

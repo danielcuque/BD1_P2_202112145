@@ -1,12 +1,14 @@
 USE Proyecto2;
 
 -- Calls to create a new career
-
+CALL crearCarrera('Area Comun');
 CALL crearCarrera('Ingenieria en Ciencias y Sistemas');
 CALL crearCarrera('Ingenieria Industrial');
 CALL crearCarrera('Ingenieria Mecanica');
 CALL crearCarrera('Ingenieria Civil');
 
+
+-- Calls to create a new student
 
 CALL registrarEstudiante(
     202112145,
@@ -129,5 +131,120 @@ CALL registrarEstudiante(
     1
 );
 
+-- Calls to create a new teacher
 
+CALL registrarDocente('Carlos', 'Gómez', '1980-03-10', 'carlos.gomez@email.com', '12345678', 'Ciudad de Guatemala', 1234567890123, 101);
+CALL registrarDocente('Elena', 'Martínez', '1975-11-22', 'elena.martinez@email.com', '98765432', 'Villa Nueva', 9876543210987, 102);
+CALL registrarDocente('José', 'López', '1985-07-05', 'jose.lopez@email.com', '55555555', 'Quetzaltenango', 5555555555555, 103);
+CALL registrarDocente('Ana', 'Ramírez', '1978-09-15', 'ana.ramirez@email.com', '11111111', 'Escuintla', 1111111111111, 104);
+CALL registrarDocente('Miguel', 'Hernández', '1982-02-28', 'miguel.hernandez@email.com', '22222222', 'Antigua Guatemala', 2222222222222, 105);
 
+-- Calls to create a new course
+
+CALL crearCurso(
+    348,
+    'QUIMICA GENERAL 1',
+    0,
+    3,
+    0,
+    TRUE
+);
+
+CALL crearCurso(
+    39,
+    'DEPORTES 1',
+    0,
+    1,
+    0,
+    FALSE
+);
+
+CALL crearCurso(
+    69,
+    'TECNICA COMPLEMENTARIA',
+    0,
+    1,
+    0,
+    TRUE
+);
+
+CALL crearCurso(
+    17,
+    'AREA SOCIAL HUMANISTICA 1',
+    0,
+    3,
+    0,
+    TRUE
+);
+
+CALL crearCurso(
+    6,
+    'IDIOMA TECNICO 1',
+    0,
+    4,
+    0,
+    TRUE
+);
+
+CALL crearCurso(
+    960,
+    'MATEMATICA PARA COMPUTACION 1',
+    33,
+    5,
+    1,
+    TRUE
+);
+
+CALL crearCurso(
+    770,
+    'IPC1',
+    33,
+    4,
+    1,
+    TRUE
+);
+
+CALL crearCurso(
+    771,
+    'IPC2',
+    33,
+    5,
+    1,
+    FALSE
+);
+
+CALL crearCurso(
+    962,
+    'MATEMATICA PARA COMPUTACION 2',
+    33,
+    5,
+    1,
+    TRUE
+);
+
+CALL crearCurso(
+    796,
+    'LENGUAJES FORMALES Y DE PROGRAMACION',
+    33,
+    3,
+    3,
+    FALSE
+);
+
+CALL habilitarCurso(
+    348,
+    '1S',
+    101,
+    110,
+    'A'
+);
+
+CALL habilitarCurso(
+    348,
+    '1S',
+    101,
+    110,
+    'B'
+);
+
+SELECT * FROM CursoHabilitado

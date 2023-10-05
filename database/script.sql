@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Carrera(
 );
 
 CREATE TABLE IF NOT EXISTS Docente(
-    id_docente INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    registro_siif INT NOT NULL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     fecha_nacimiento DATE NOT NULL,
@@ -32,7 +32,6 @@ CREATE TABLE IF NOT EXISTS Docente(
     telefono VARCHAR(8) NOT NULL,
     direccion VARCHAR(200) NOT NULL,
     dpi BIGINT(13) NOT NULL,
-    registro_siif INT NOT NULL,
     fecha_creacion DATE NOT NULL
 );
 
@@ -50,7 +49,7 @@ CREATE TABLE IF NOT EXISTS CursoHabilitado(
     id_curso_habilitado INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     id_curso INT NOT NULL,
     ciclo VARCHAR(2) NOT NULL,
-    id_docente INT NOT NULL,
+    registro_siif INT NOT NULL,
     cupo_maximo INT NOT NULL,
     seccion CHAR NOT NULL,
     fecha_creacion DATE NOT NULL,
@@ -97,7 +96,7 @@ CREATE TABLE IF NOT EXISTS HistorialTransacciones(
 ALTER TABLE Estudiante ADD CONSTRAINT FK_Estudiante_Carrera FOREIGN KEY (id_carrera) REFERENCES Carrera(id_carrera);
 ALTER TABLE Curso ADD CONSTRAINT FK_Curso_Carrera FOREIGN KEY (id_carrera) REFERENCES Carrera(id_carrera);
 ALTER TABLE CursoHabilitado ADD CONSTRAINT FK_CursoHabilitado_Curso FOREIGN KEY (id_curso) REFERENCES Curso(id_curso);
-ALTER TABLE CursoHabilitado ADD CONSTRAINT FK_CursoHabilitado_Docente FOREIGN KEY (id_docente) REFERENCES Docente(id_docente);
+ALTER TABLE CursoHabilitado ADD CONSTRAINT FK_CursoHabilitado_Docente FOREIGN KEY (registro_siif) REFERENCES Docente(registro_siif);
 ALTER TABLE HorarioCurso ADD CONSTRAINT FK_HorarioCurso_CursoHabilitado FOREIGN KEY (id_curso_habilitado) REFERENCES CursoHabilitado(id_curso_habilitado);
 ALTER TABLE AsignacionCurso ADD CONSTRAINT FK_AsignacionCurso_CursoHabilitado FOREIGN KEY (id_curso_habilitado) REFERENCES CursoHabilitado(id_curso_habilitado);
 ALTER TABLE AsignacionCurso ADD CONSTRAINT FK_AsignacionCurso_Estudiante FOREIGN KEY (carnet_estudiante) REFERENCES Estudiante(carnet);
