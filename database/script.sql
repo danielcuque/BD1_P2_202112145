@@ -37,8 +37,7 @@ CREATE TABLE IF NOT EXISTS Docente(
 );
 
 CREATE TABLE IF NOT EXISTS Curso(
-    id_curso INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    codigo VARCHAR(10) NOT NULL,
+    id_curso INT NOT NULL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     creditos_necesarios INT NOT NULL,
     creditos_otorgados INT NOT NULL,
@@ -46,13 +45,16 @@ CREATE TABLE IF NOT EXISTS Curso(
     es_obligatorio BOOLEAN NOT NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS CursoHabilitado(
     id_curso_habilitado INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     id_curso INT NOT NULL,
     ciclo VARCHAR(2) NOT NULL,
     id_docente INT NOT NULL,
     cupo_maximo INT NOT NULL,
-    seccion CHAR NOT NULL
+    seccion CHAR NOT NULL,
+    fecha_creacion DATE NOT NULL,
+    cantidad_inscritos INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS HorarioCurso(
@@ -76,7 +78,6 @@ CREATE TABLE IF NOT EXISTS Nota(
   nota INT NOT NULL
 );
 
-/*Acta*/
 
 CREATE TABLE IF NOT EXISTS Acta(
     id_acta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -84,8 +85,6 @@ CREATE TABLE IF NOT EXISTS Acta(
     ciclo VARCHAR(2) NOT NULL,
     fecha DATE NOT NULL
 );
-
-/* Historial Transacciones*/
 
 CREATE TABLE IF NOT EXISTS HistorialTransacciones(
     id_transaccion INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
