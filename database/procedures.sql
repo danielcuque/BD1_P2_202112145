@@ -660,7 +660,48 @@ CREATE PROCEDURE consultarDesasignacion(
 )
 BEGIN
 
-end; $$
+    DECLARE estudiantesInscritos INT DEFAULT 1;
+
+    IF NOT CursoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT ValidarCiclo(in_ciclo) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ciclo no es válido';
+    END IF;
+
+    IF NOT SeccionExisteID(in_seccion, in_id_curso) THEN
+        SET @custom_message = CONCAT('La sección ', in_seccion, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT CursoHabilitadoExiste(in_id_curso, in_ciclo, in_seccion) THEN
+        SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    SELECT COUNT(*) INTO estudiantesInscritos
+    FROM AsignacionCurso AC
+    INNER JOIN CursoHabilitado CH
+    ON AC.id_curso_habilitado = CH.id_curso_habilitado
+    WHERE CH.id_curso = in_id_curso AND CH.ciclo = in_ciclo AND CH.seccion = in_seccion;
+
+    SELECT
+        in_id_curso AS 'Codigo de curso',
+        CH.seccion AS 'Seccion',
+        ObtenerFormatoCiclo(CH.ciclo) AS 'Ciclo',
+        CH.fecha_actual AS 'Año',
+        estudiantesInscritos AS 'Cantidad de estudiantes asignados durante el ciclo',
+        COUNT(*) AS 'Cantidad de estudiantes desasignados',
+        CONCAT(ROUND((COUNT(*) / estudiantesInscritos) * 100, 2), '%') AS 'Porcentaje de desasignacion'
+    FROM CursoHabilitado CH
+    INNER JOIN AsignacionCurso AC
+    ON CH.id_curso_habilitado = AC.id_curso_habilitado
+    WHERE CH.id_curso = in_id_curso AND CH.ciclo = in_ciclo AND CH.seccion = in_seccion AND AC.asignado = FALSE
+    GROUP BY CH.id_curso_habilitado, CH.seccion, CH.ciclo, CH.fecha_actual, CH.cantidad_inscritos;
+
+END; $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS historialTransacciones;

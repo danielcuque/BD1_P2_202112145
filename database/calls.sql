@@ -322,12 +322,6 @@ CALL asignarCurso(
     202112145
 );
 
-CALL asignarCurso(
-    348,
-    '1S',
-    'A',
-    202112146
-);
 
 CALL asignarCurso(
     6,
@@ -341,6 +335,20 @@ CALL asignarCurso(
     '1S',
     'A',
     202112145
+);
+
+CALL asignarCurso(
+    348,
+    '1S',
+    'A',
+    202112146
+);
+
+CALL asignarCurso(
+    39,
+    '1S',
+    'A',
+    202112146
 );
 
 /* Desasignaciones */
@@ -415,4 +423,9 @@ CALL consultarAprobacion(
 
 CALL consultarActas(348);
 
-
+CALL consultarDesasignacion(
+    39,
+    '1S',
+    2023,
+    'A'
+)
