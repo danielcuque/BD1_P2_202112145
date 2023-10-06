@@ -321,3 +321,10 @@ CALL asignarCurso(
     'A',
     202112145
 );
+
+CALL asignarCurso(
+    348,
+    '1S',
+    'B',
+    202112145
+);

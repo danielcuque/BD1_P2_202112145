@@ -210,6 +210,8 @@ CREATE PROCEDURE asignarCurso(
     IN in_carnet BIGINT(9)
 )
 BEGIN
+    DECLARE idCursoHabilitado INT DEFAULT 1;
+
     IF NOT EstudianteExiste(in_carnet) THEN
         SET @custom_message = CONCAT('El estudiante con carnet ', in_carnet, ' no existe');
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
@@ -250,14 +252,16 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante no pertenece a la carrera de este curso';
     END IF;
 
+    SET idCursoHabilitado = ObtenerCursoHabilitado(in_id_curso, in_seccion, in_ciclo);
+
     START TRANSACTION;
 
-    INSERT INTO AsignacionCurso(id_asignacion_curso, id_curso_habilitado, carnet_estudiante)
-    VALUES (NULL, in_id_curso, in_carnet);
+    INSERT INTO AsignacionCurso(id_curso_habilitado, carnet_estudiante, estado)
+    VALUES (idCursoHabilitado, in_carnet, TRUE);
 
     UPDATE CursoHabilitado
     SET cantidad_inscritos = cantidad_inscritos + 1
-    WHERE id_curso_habilitado = in_id_curso;
+    WHERE id_curso_habilitado = idCursoHabilitado;
 
     COMMIT;
 

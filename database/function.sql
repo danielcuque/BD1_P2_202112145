@@ -177,7 +177,7 @@ BEGIN
     FROM Estudiante
     WHERE carnet = param_id_estudiante;
 
-    IF (id_carrera_curso = id_carrera_estudiante) THEN
+    IF (id_carrera_curso = 1 OR id_carrera_curso = id_carrera_estudiante) THEN
         SET PERTENECE = TRUE;
     END IF;
 
