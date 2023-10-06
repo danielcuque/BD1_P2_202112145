@@ -371,6 +371,28 @@ END;
 $$
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS ObtenerFormatoCiclo;
+DELIMITER $$
+CREATE FUNCTION ObtenerFormatoCiclo (param_ciclo VARCHAR(2)) RETURNS VARCHAR(100)
+DETERMINISTIC
+    BEGIN
+
+        DECLARE ciclo VARCHAR(100) DEFAULT '';
+
+        IF (param_ciclo = '1S') THEN
+            SET ciclo = 'PRIMER SEMESTRE';
+        ELSEIF (param_ciclo = '2S') THEN
+            SET ciclo = 'SEGUNDO SEMESTRE';
+        ELSEIF (param_ciclo = 'VJ') THEN
+            SET ciclo = 'VACACIONES DE JUNIO';
+        ELSEIF (param_ciclo = 'VD') THEN
+            SET ciclo = 'VACACIONES DE DICIEMBRE';
+        END IF;
+
+        RETURN ciclo;
+    end; $$
+DELIMITER ;
+
 DROP FUNCTION IF EXISTS SafeInput;
 DELIMITER $$
 CREATE FUNCTION SafeInput (input VARCHAR(1000)) RETURNS BOOLEAN

@@ -543,14 +543,39 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS consultarAsignados;
 DELIMITER $$
 CREATE PROCEDURE consultarAsignados(
-    IN in_carnet BIGINT(9),
+    IN in_id_curso BIGINT(9),
     IN in_ciclo VARCHAR(50),
     IN in_year INT,
     IN seccion CHAR(1)
 )
 BEGIN
 
-end; $$
+    IF NOT ValidarCiclo(in_ciclo) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ciclo no es válido';
+    END IF;
+
+    IF NOT SeccionExisteID(seccion, in_id_curso) THEN
+        SET @custom_message = CONCAT('La sección ', seccion, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT CursoHabilitadoExiste(in_id_curso, in_ciclo, seccion) THEN
+        SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    SELECT
+        E.carnet AS 'Carnet',
+        CONCAT(E.nombre, ' ', E.apellido) AS 'Nombre',
+        E.creditos AS 'Creditos'
+    FROM Estudiante E
+    INNER JOIN Carrera C
+    ON E.id_carrera = C.id_carrera
+    INNER JOIN AsignacionCurso AC
+    ON E.carnet = AC.carnet_estudiante
+    WHERE AC.id_curso_habilitado = ObtenerCursoHabilitado(in_id_curso, seccion, in_ciclo) AND AC.asignado = TRUE;
+END;
+$$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS consultarAprobacion;
@@ -563,7 +588,39 @@ CREATE PROCEDURE consultarAprobacion(
 )
 BEGIN
 
-end; $$
+    IF NOT CursoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT ValidarCiclo(in_ciclo) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ciclo no es válido';
+    END IF;
+
+    IF NOT SeccionExisteID(in_seccion, in_id_curso) THEN
+        SET @custom_message = CONCAT('La sección ', in_seccion, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT CursoHabilitadoExiste(in_id_curso, in_ciclo, in_seccion) THEN
+        SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    SELECT
+        in_id_curso AS 'Codigo de curso',
+        E.carnet AS 'Carnet',
+        CONCAT(E.nombre, ' ', E.apellido) AS 'Nombre',
+        IF(N.nota >= 61, 'APROBADO', 'DESAPROBADO') AS 'Estado'
+    FROM Estudiante E
+    INNER JOIN Carrera C
+    ON E.id_carrera = C.id_carrera
+    INNER JOIN AsignacionCurso AC
+    ON E.carnet = AC.carnet_estudiante
+    INNER JOIN Nota N
+    ON AC.id_asignacion_curso = N.id_asignacion_curso
+    WHERE AC.id_curso_habilitado = ObtenerCursoHabilitado(in_id_curso, in_seccion, in_ciclo);
+END; $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS consultarActas;
@@ -572,8 +629,24 @@ CREATE PROCEDURE consultarActas(
     IN in_id_curso INT
 )
 BEGIN
+    IF NOT CursoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
 
-end; $$
+    SELECT
+        in_id_curso AS 'Codigo de curso',
+        CH.seccion AS 'Seccion',
+        ObtenerFormatoCiclo(CH.ciclo) AS 'Ciclo',
+        CH.fecha_actual AS 'Año',
+        CH.cantidad_inscritos AS 'Cantidad de estudiantes',
+        A.fecha AS 'Fecha y hora de generado'
+    FROM CursoHabilitado CH
+    INNER JOIN Acta A
+    ON CH.id_curso_habilitado = A.id_curso_habilitado
+    WHERE CH.id_curso = in_id_curso;
+
+END; $$
 DELIMITER ;
 
 

@@ -384,3 +384,35 @@ CALL generarActa(
     'A'
 );
 
+/* GETTERS */
+CALL consultarPensum(1);
+CALL consultarPensum(2);
+
+CALL consultarEstudiante(202112145);
+
+CALL consultarDocente(101);
+
+CALL consultarAsignados(
+    348,
+    '1S',
+    2023,
+    'A'
+);
+
+CALL consultarAsignados(
+    6,
+    '1S',
+    2023,
+    'C'
+);
+
+CALL consultarAprobacion(
+    348,
+    '1S',
+    2023,
+    'A'
+);
+
+CALL consultarActas(348);
+
+
