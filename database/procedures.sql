@@ -329,6 +329,90 @@ END; $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS ingresarNota;
+DELIMITER $$
+CREATE PROCEDURE ingresarNota(
+    IN in_id_curso INT,
+    IN in_ciclo VARCHAR(50),
+    IN in_seccion CHAR(1),
+    IN in_carnet BIGINT(9),
+    IN in_nota FLOAT
+)
+
+BEGIN
+    DECLARE idCursoHabilitado INT DEFAULT 1;
+    DECLARE idAsignacionCurso INT DEFAULT 1;
+    DECLARE creditosCurso INT DEFAULT 1;
+    DECLARE creditosEstudiante INT DEFAULT 1;
+    DECLARE notaFinal INT DEFAULT 1;
+
+    IF NOT EstudianteExiste(in_carnet) THEN
+        SET @custom_message = CONCAT('El estudiante con carnet ', in_carnet, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT CursoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT (SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = in_id_curso AND ciclo = in_ciclo AND seccion = in_seccion) THEN
+        SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT SeccionExisteID(in_seccion, in_id_curso) THEN
+        SET @custom_message = CONCAT('La sección ', in_seccion, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT ValidarCiclo(in_ciclo) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ciclo no es válido';
+    END IF;
+
+    IF NOT EstudianteInscrito(in_id_curso, in_ciclo, in_carnet) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante no esta asignado a este curso';
+    END IF;
+
+    SET idCursoHabilitado = ObtenerCursoHabilitado(in_id_curso, in_seccion, in_ciclo);
+
+    IF NOT EstudianteActivo(idCursoHabilitado, in_carnet) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante no esta activo en este curso';
+    END IF;
+
+    IF NOT IsIntPositive(in_nota) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La nota debe ser un entero positivo';
+    END IF;
+
+    IF in_nota > 100 OR in_nota < 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La nota debe estar entre 0 y 100';
+    END IF;
+
+    SET creditosCurso = ObtenerCreditosCurso(in_id_curso);
+    SET creditosEstudiante = ObtenerCreditosEstudiante(in_carnet);
+    SET notaFinal = ROUND(in_nota);
+
+    IF NOT AsignacionCursoExisteID(idCursoHabilitado, in_carnet) THEN
+        SET @custom_message = CONCAT('La asignacion del curso con id ', idCursoHabilitado, ' y carnet ', in_carnet, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    SET idAsignacionCurso = ObtenerAsignacionCurso(idCursoHabilitado, in_carnet);
+
+    START TRANSACTION;
+
+    INSERT INTO Nota(id_asignacion_curso, nota) VALUES (idAsignacionCurso, notaFinal);
+
+    IF notaFinal >= 61 THEN
+        UPDATE Estudiante
+        SET creditos = creditos + creditosCurso
+        WHERE carnet = in_carnet;
+    END IF;
+
+    COMMIT;
+
+END; $$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS generarActa;
 
 -- Getters

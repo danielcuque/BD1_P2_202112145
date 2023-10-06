@@ -336,9 +336,30 @@ CALL asignarCurso(
     202112145
 );
 
+/* Desasignaciones */
+
 CALL desasignarCurso(
     39,
     '1S',
     'A',
-    20212145
+    202112145
 );
+
+/* Ingreso de notas */
+
+CALL ingresarNota(
+    348,
+    '1S',
+    'A',
+    202112145,
+    100
+);
+
+CALL ingresarNota(
+    6,
+    '1S',
+    'C',
+    202112145,
+    50
+);
+

@@ -1,5 +1,19 @@
 USE Proyecto2;
 
+DROP FUNCTION IF EXISTS AsignacionCursoExisteID;
+DELIMITER $$
+CREATE FUNCTION AsignacionCursoExisteID (param_id_curso_habilitado INT, param_id_estudiante INT) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
+    IF (SELECT COUNT(*) FROM AsignacionCurso WHERE id_curso_habilitado = param_id_curso_habilitado AND carnet_estudiante = param_id_estudiante) > 0 THEN
+        SET EXISTE = TRUE;
+    END IF;
+    RETURN EXISTE;
+END;
+$$
+DELIMITER ;
+
 DROP FUNCTION IF EXISTS  CarreraExisteID;
 DELIMITER $$
 CREATE FUNCTION CarreraExisteID (param_id_carrera INT) RETURNS BOOLEAN
@@ -255,6 +269,48 @@ END;
 $$
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS ObtenerAsignacionCurso;
+DELIMITER $$
+CREATE FUNCTION ObtenerAsignacionCurso (param_id_curso_habilitado INT, param_id_estudiante INT) RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE idAsignacionCurso INT DEFAULT 0;
+    SELECT id_asignacion_curso INTO idAsignacionCurso
+    FROM AsignacionCurso
+    WHERE id_curso_habilitado = param_id_curso_habilitado AND carnet_estudiante = param_id_estudiante;
+    RETURN idAsignacionCurso;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS ObtenerCreditosCurso;
+DELIMITER $$
+CREATE FUNCTION ObtenerCreditosCurso (param_id_curso INT) RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE creditos INT DEFAULT 0;
+    SELECT creditos_otorgados INTO creditos
+    FROM Curso
+    WHERE id_curso = param_id_curso;
+    RETURN creditos;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS ObtenerCreditosEstudiante;
+DELIMITER $$
+CREATE FUNCTION ObtenerCreditosEstudiante (param_id_estudiante INT) RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE creditos INT DEFAULT 0;
+    SELECT creditos INTO creditos
+    FROM Estudiante
+    WHERE carnet = param_id_estudiante;
+    RETURN creditos;
+END;
+$$
+DELIMITER ;
+
 DROP FUNCTION IF EXISTS ObtenerCursoHabilitado;
 DELIMITER $$
 CREATE FUNCTION ObtenerCursoHabilitado (
@@ -273,6 +329,7 @@ BEGIN
 END;
 $$
 DELIMITER ;
+
 
 DROP FUNCTION IF EXISTS SafeInput;
 DELIMITER $$

@@ -70,10 +70,11 @@ CREATE TABLE IF NOT EXISTS AsignacionCurso(
     estado BOOLEAN NOT NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS Nota(
   id_nota INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   id_asignacion_curso INT NOT NULL,
-  nota INT NOT NULL
+  nota FLOAT NOT NULL
 );
 
 
