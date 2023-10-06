@@ -246,3 +246,5 @@ CALL habilitarCurso(
     110,
     'B'
 );
+
+CALL consultarPensum(1)

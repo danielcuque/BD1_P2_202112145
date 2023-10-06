@@ -1,29 +1,83 @@
 USE Proyecto2;
 
-DROP FUNCTION IF EXISTS SafeInput;
+DROP FUNCTION IF EXISTS  CarreraExisteID;
 DELIMITER $$
-CREATE FUNCTION SafeInput (input VARCHAR(1000)) RETURNS BOOLEAN
+CREATE FUNCTION CarreraExisteID (param_id_carrera INT) RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
-    DECLARE IS_SAFE BOOLEAN DEFAULT FALSE;
-    IF (input NOT REGEXP '[^A-Za-z0-9@.]') THEN
-        SET IS_SAFE = TRUE;
+    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
+    IF (SELECT COUNT(*) FROM Carrera WHERE id_carrera = param_id_carrera) > 0 THEN
+        SET EXISTE = TRUE;
     END IF;
-    RETURN IS_SAFE;
+    RETURN EXISTE;
 END;
 $$
 DELIMITER ;
 
-DROP FUNCTION IF EXISTS ValidateEmail;
+DROP FUNCTION IF EXISTS  CarreraExisteNombre;
 DELIMITER $$
-CREATE FUNCTION ValidateEmail (email VARCHAR(1000)) RETURNS BOOLEAN
+CREATE FUNCTION CarreraExisteNombre (param_nombre_carrera VARCHAR(200)) RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
-   DECLARE IS_VALID BOOLEAN DEFAULT FALSE;
-    IF (email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$') THEN
-        SET IS_VALID = TRUE;
+    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
+    IF (SELECT COUNT(*) FROM Carrera WHERE nombre = param_nombre_carrera) > 0 THEN
+        SET EXISTE = TRUE;
     END IF;
-    RETURN IS_VALID;
+    RETURN EXISTE;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS CursoExisteID;
+DELIMITER $$
+CREATE FUNCTION CursoExisteID (param_id_curso INT) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
+    IF (SELECT COUNT(*) FROM Curso WHERE id_curso = param_id_curso) > 0 THEN
+        SET EXISTE = TRUE;
+    END IF;
+    RETURN EXISTE;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS CursoHabilitadoLleno;
+DELIMITER $$
+CREATE FUNCTION CursoHabilitadoLleno (param_id_curso INT, param_ciclo VARCHAR(2), param_seccion CHAR) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE LLENO BOOLEAN DEFAULT FALSE;
+    DECLARE cupo INT DEFAULT 0;
+    DECLARE inscritos INT DEFAULT 0;
+
+    SELECT cupo INTO cupo
+    FROM CursoHabilitado
+    WHERE id_curso = param_id_curso AND ciclo = param_ciclo AND seccion = param_seccion;
+
+    SELECT COUNT(*) INTO inscritos
+    FROM CursoHabilitado
+    WHERE id_curso = param_id_curso AND ciclo = param_ciclo AND seccion = param_seccion;
+
+    IF (inscritos >= cupo) THEN
+        SET LLENO = TRUE;
+    END IF;
+
+    RETURN LLENO;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS DocenteExisteSIIF;
+DELIMITER $$
+CREATE FUNCTION DocenteExisteSIIF (param_siif INT) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
+    IF (SELECT COUNT(*) FROM Docente WHERE registro_siif = param_siif) > 0 THEN
+        SET EXISTE = TRUE;
+    END IF;
+    RETURN EXISTE;
 END;
 $$
 DELIMITER ;
@@ -72,90 +126,6 @@ END;
 $$
 DELIMITER ;
 
-DROP FUNCTION IF EXISTS  CarreraExisteID;
-DELIMITER $$
-CREATE FUNCTION CarreraExisteID (param_id_carrera INT) RETURNS BOOLEAN
-DETERMINISTIC
-BEGIN
-    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
-    IF (SELECT COUNT(*) FROM Carrera WHERE id_carrera = param_id_carrera) > 0 THEN
-        SET EXISTE = TRUE;
-    END IF;
-    RETURN EXISTE;
-END;
-$$
-DELIMITER ;
-
-DROP FUNCTION IF EXISTS  CarreraExisteNombre;
-DELIMITER $$
-CREATE FUNCTION CarreraExisteNombre (param_nombre_carrera VARCHAR(200)) RETURNS BOOLEAN
-DETERMINISTIC
-BEGIN
-    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
-    IF (SELECT COUNT(*) FROM Carrera WHERE nombre = param_nombre_carrera) > 0 THEN
-        SET EXISTE = TRUE;
-    END IF;
-    RETURN EXISTE;
-END;
-$$
-DELIMITER ;
-
-DROP FUNCTION IF EXISTS CursoExisteID;
-DELIMITER $$
-CREATE FUNCTION CursoExisteID (param_id_curso INT) RETURNS BOOLEAN
-DETERMINISTIC
-BEGIN
-    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
-    IF (SELECT COUNT(*) FROM Curso WHERE id_curso = param_id_curso) > 0 THEN
-        SET EXISTE = TRUE;
-    END IF;
-    RETURN EXISTE;
-END;
-$$
-DELIMITER ;
-
-
-DROP FUNCTION IF EXISTS ValidarCiclo;
-DELIMITER $$
-CREATE FUNCTION ValidarCiclo (param_ciclo VARCHAR(2)) RETURNS BOOLEAN
-DETERMINISTIC
-BEGIN
-    DECLARE IS_VALID BOOLEAN DEFAULT FALSE;
-    IF (param_ciclo REGEXP '^[1-2V][SJD]$') THEN
-        SET IS_VALID = TRUE;
-    END IF;
-    RETURN IS_VALID;
-END;
-$$
-DELIMITER ;
-
-DROP FUNCTION IF EXISTS SeccionExisteID;
-DELIMITER $$
-CREATE FUNCTION SeccionExisteID (param_seccion CHAR, param_id_curso INT) RETURNS BOOLEAN
-DETERMINISTIC
-BEGIN
-    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
-    IF(SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = param_id_curso AND seccion = param_seccion) > 0 THEN
-        SET EXISTE = TRUE;
-    END IF;
-    RETURN EXISTE;
-END;
-
-$$
-DELIMITER ;
-
-
-DROP FUNCTION IF EXISTS FormatIDCarrera;
-DELIMITER $$
-CREATE FUNCTION FormatIDCarrera (param_id_carrera INT) RETURNS INT
-DETERMINISTIC
-BEGIN
-    DECLARE id_carrera INT DEFAULT 0;
-    SET id_carrera = param_id_carrera + 1;
-    RETURN id_carrera;
-END;
-$$
-DELIMITER ;
 
 DROP FUNCTION IF EXISTS CursoHabilitadoExisteID;
 DELIMITER $$
@@ -169,19 +139,6 @@ BEGIN
     RETURN EXISTE;
 END;
 $$
-DELIMITER ;
-
-DROP FUNCTION IF EXISTS ValidarHorario;
-DELIMITER $$
-CREATE FUNCTION ValidarHorario(param_horario VARCHAR(20)) RETURNS BOOLEAN
-DETERMINISTIC
-BEGIN
-    DECLARE IS_VALID BOOLEAN DEFAULT FALSE;
-    IF (param_horario REGEXP '^[0-9]{1,2}:[0-9]{2}-[0-9]{1,2}:[0-9]{2}$') THEN
-        SET IS_VALID = TRUE;
-    END IF;
-    RETURN IS_VALID;
-end; $$
 DELIMITER ;
 
 DROP FUNCTION IF EXISTS EstudianteInscrito;
@@ -199,39 +156,11 @@ END;
 $$
 DELIMITER ;
 
-DROP FUNCTION IF EXISTS EstudianteTieneCreditos;
-DELIMITER $$
-CREATE FUNCTION EstudianteTieneCreditos (param_id_estudiante INT, param_id_curso INT) RETURNS BOOLEAN
-DETERMINISTIC
-BEGIN
-
-    -- Use join to get credits required for the course
-    DECLARE creditos_requeridos INT DEFAULT 0;
-    DECLARE creditos_estudiante INT DEFAULT 0;
-    DECLARE TIENE_CREDITOS BOOLEAN DEFAULT FALSE;
-
-    SELECT creditos_necesarios INTO creditos_requeridos
-    FROM Curso
-    WHERE id_curso = param_id_curso;
-
-    SELECT creditos FROM Estudiante WHERE carnet = param_id_estudiante INTO creditos_estudiante;
-
-    IF (creditos_estudiante >= creditos_requeridos) THEN
-        SET TIENE_CREDITOS = TRUE;
-    END IF;
-
-    RETURN TIENE_CREDITOS;
-END;
-$$
-DELIMITER ;
-
 DROP FUNCTION IF EXISTS EstudiantePerteneceCarrera;
 DELIMITER $$
 CREATE FUNCTION EstudiantePerteneceCarrera (param_id_estudiante INT, param_id_curso INT) RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
-    -- Each course have an id of the career it belongs to
-    -- Estudiante table have an id of the career the student belongs to
 
     DECLARE PERTENECE BOOLEAN DEFAULT FALSE;
     DECLARE id_carrera_curso INT DEFAULT 0;
@@ -254,28 +183,110 @@ END;
 $$
 DELIMITER ;
 
-DROP FUNCTION IF EXISTS CursoHabilitadoLleno;
+
+DROP FUNCTION IF EXISTS EstudianteTieneCreditos;
 DELIMITER $$
-CREATE FUNCTION CursoHabilitadoLleno (param_id_curso INT, param_ciclo VARCHAR(2), param_seccion CHAR) RETURNS BOOLEAN
+CREATE FUNCTION EstudianteTieneCreditos (param_id_estudiante INT, param_id_curso INT) RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
-    DECLARE LLENO BOOLEAN DEFAULT FALSE;
-    DECLARE cupo INT DEFAULT 0;
-    DECLARE inscritos INT DEFAULT 0;
 
-    SELECT cupo INTO cupo
-    FROM CursoHabilitado
-    WHERE id_curso = param_id_curso AND ciclo = param_ciclo AND seccion = param_seccion;
+    DECLARE creditos_requeridos INT DEFAULT 0;
+    DECLARE creditos_estudiante INT DEFAULT 0;
+    DECLARE TIENE_CREDITOS BOOLEAN DEFAULT FALSE;
 
-    SELECT COUNT(*) INTO inscritos
-    FROM CursoHabilitado
-    WHERE id_curso = param_id_curso AND ciclo = param_ciclo AND seccion = param_seccion;
+    SELECT creditos_necesarios INTO creditos_requeridos
+    FROM Curso
+    WHERE id_curso = param_id_curso;
 
-    IF (inscritos >= cupo) THEN
-        SET LLENO = TRUE;
+    SELECT creditos FROM Estudiante WHERE carnet = param_id_estudiante INTO creditos_estudiante;
+
+    IF (creditos_estudiante >= creditos_requeridos) THEN
+        SET TIENE_CREDITOS = TRUE;
     END IF;
 
-    RETURN LLENO;
+    RETURN TIENE_CREDITOS;
 END;
 $$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS FormatIDCarrera;
+DELIMITER $$
+CREATE FUNCTION FormatIDCarrera (param_id_carrera INT) RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE id_carrera INT DEFAULT 0;
+    SET id_carrera = param_id_carrera + 1;
+    RETURN id_carrera;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS SafeInput;
+DELIMITER $$
+CREATE FUNCTION SafeInput (input VARCHAR(1000)) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE IS_SAFE BOOLEAN DEFAULT FALSE;
+    IF (input NOT REGEXP '[^A-Za-z0-9@.]') THEN
+        SET IS_SAFE = TRUE;
+    END IF;
+    RETURN IS_SAFE;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS SeccionExisteID;
+DELIMITER $$
+CREATE FUNCTION SeccionExisteID (param_seccion CHAR, param_id_curso INT) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
+    IF(SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = param_id_curso AND seccion = param_seccion) > 0 THEN
+        SET EXISTE = TRUE;
+    END IF;
+    RETURN EXISTE;
+END;
+
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS ValidarCiclo;
+DELIMITER $$
+CREATE FUNCTION ValidarCiclo (param_ciclo VARCHAR(2)) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE IS_VALID BOOLEAN DEFAULT FALSE;
+    IF (param_ciclo REGEXP '^[1-2V][SJD]$') THEN
+        SET IS_VALID = TRUE;
+    END IF;
+    RETURN IS_VALID;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS ValidateEmail;
+DELIMITER $$
+CREATE FUNCTION ValidateEmail (email VARCHAR(1000)) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+   DECLARE IS_VALID BOOLEAN DEFAULT FALSE;
+    IF (email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$') THEN
+        SET IS_VALID = TRUE;
+    END IF;
+    RETURN IS_VALID;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS ValidarHorario;
+DELIMITER $$
+CREATE FUNCTION ValidarHorario(param_horario VARCHAR(20)) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE IS_VALID BOOLEAN DEFAULT FALSE;
+    IF (param_horario REGEXP '^[0-9]{1,2}:[0-9]{2}-[0-9]{1,2}:[0-9]{2}$') THEN
+        SET IS_VALID = TRUE;
+    END IF;
+    RETURN IS_VALID;
+end; $$
 DELIMITER ;

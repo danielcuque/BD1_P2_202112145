@@ -274,3 +274,91 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS desasignarCurso;
 DROP PROCEDURE IF EXISTS ingresarNota;
+DROP PROCEDURE IF EXISTS generarActa;
+
+-- Getters
+
+DROP PROCEDURE IF EXISTS consultarPensum;
+DELIMITER $$
+CREATE PROCEDURE consultarPensum(
+    IN in_id_carrera INT
+)
+BEGIN
+    DECLARE idCarrera INT DEFAULT 1;
+    SET idCarrera = FormatIDCarrera(in_id_carrera);
+
+    IF NOT CarreraExisteID(idCarrera) THEN
+        SET @custom_message = CONCAT('La carrera con id ', in_id_carrera, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    SELECT
+        id_curso AS 'Codigo de curso',
+        nombre AS 'Nombre',
+        es_obligatorio AS 'Obligatorio',
+        creditos_necesarios AS 'Creditos necesarios'
+    FROM Curso
+    WHERE id_carrera = idCarrera OR id_carrera = 1;
+END;
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS consultarEstudiante;
+DELIMITER $$
+CREATE PROCEDURE consultarEstudiante(
+    IN in_carnet BIGINT(9)
+)
+BEGIN
+    IF NOT EstudianteExiste(in_carnet) THEN
+        SET @custom_message = CONCAT('El estudiante con carnet ', in_carnet, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    SELECT
+        E.carnet AS 'Carnet',
+        CONCAT(E.nombre, ' ', E.apellido) AS 'Nombre',
+        E.correo AS 'Correo',
+        E.telefono AS 'Telefono',
+        E.direccion AS 'Direccion',
+        E.dpi AS 'DPI',
+        C.nombre AS 'Carrera',
+        E.creditos AS 'Creditos'
+    FROM Estudiante E
+    INNER JOIN Carrera C
+    ON E.id_carrera = C.id_carrera
+    WHERE E.carnet = in_carnet;
+END;
+$$
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS consultarDocente;
+DELIMITER $$
+CREATE PROCEDURE consultarDocnente(
+    IN in_siif INT
+)
+BEGIN
+    IF NOT DocenteExisteSIIF(in_siif) THEN
+        SET @custom_message = CONCAT('El docente con registro siif ', in_siif, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    SELECT
+        registro_siif AS 'Registro SIIF',
+        CONCAT(nombre, ' ', apellido) AS 'Nombre',
+        fecha_nacimiento AS 'Fecha de nacimiento',
+        correo AS 'Correo',
+        telefono AS 'Telefono',
+        direccion AS 'Direccion',
+        dpi AS 'DPI'
+    FROM Docente
+    WHERE registro_siif = in_siif;
+END;
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS consultarAsignados;
+DROP PROCEDURE IF EXISTS consultarAprobacion;
+DROP PROCEDURE IF EXISTS consultarActas;
+DROP PROCEDURE IF EXISTS consultarDesasignacion;
+DROP PROCEDURE IF EXISTS historialTransacciones;
