@@ -269,6 +269,65 @@ END; $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS desasignarCurso;
+DELIMITER $$
+CREATE PROCEDURE desasignarCurso(
+    IN in_id_curso INT,
+    IN in_ciclo VARCHAR(50),
+    IN in_seccion CHAR(1),
+    IN in_carnet BIGINT(9)
+)
+BEGIN
+    DECLARE idCursoHabilitado INT DEFAULT 1;
+
+    IF NOT EstudianteExiste(in_carnet) THEN
+        SET @custom_message = CONCAT('El estudiante con carnet ', in_carnet, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT CursoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT (SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = in_id_curso AND ciclo = in_ciclo AND seccion = in_seccion) THEN
+        SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT SeccionExisteID(in_seccion, in_id_curso) THEN
+        SET @custom_message = CONCAT('La sección ', in_seccion, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT ValidarCiclo(in_ciclo) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ciclo no es válido';
+    END IF;
+
+    IF NOT EstudianteInscrito(in_id_curso, in_ciclo, in_carnet) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante no esta asignado a este curso';
+    END IF;
+
+    SET idCursoHabilitado = ObtenerCursoHabilitado(in_id_curso, in_seccion, in_ciclo);
+
+    IF NOT EstudianteActivo(idCursoHabilitado,in_carnet) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante ya esta desasignado de este curso';
+    END IF;
+
+    START TRANSACTION;
+
+    UPDATE AsignacionCurso
+    SET estado = FALSE
+    WHERE id_curso_habilitado = idCursoHabilitado AND carnet_estudiante = in_carnet;
+
+    UPDATE CursoHabilitado
+    SET cantidad_inscritos = cantidad_inscritos - 1
+    WHERE id_curso_habilitado = idCursoHabilitado;
+
+    COMMIT;
+
+END; $$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS ingresarNota;
 DROP PROCEDURE IF EXISTS generarActa;
 

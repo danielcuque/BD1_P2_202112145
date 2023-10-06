@@ -335,3 +335,10 @@ CALL asignarCurso(
     'A',
     202112145
 );
+
+CALL desasignarCurso(
+    39,
+    '1S',
+    'A',
+    20212145
+);

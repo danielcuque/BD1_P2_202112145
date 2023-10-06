@@ -144,6 +144,23 @@ END;
 $$
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS EstudianteActivo;
+DELIMITER $$
+CREATE FUNCTION EstudianteActivo (param_curso_habilitado INT, param_id_estudiante INT) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+
+    DECLARE ACTIVO BOOLEAN DEFAULT FALSE;
+
+    IF (SELECT estado FROM AsignacionCurso WHERE id_curso_habilitado = param_curso_habilitado AND carnet_estudiante = param_id_estudiante) = 1 THEN
+        SET ACTIVO = TRUE;
+    END IF;
+
+    RETURN ACTIVO;
+END;
+$$
+DELIMITER ;
+
 DROP FUNCTION IF EXISTS EstudianteInscrito;
 DELIMITER $$
 CREATE FUNCTION EstudianteInscrito (param_id_curso INT,  param_ciclo VARCHAR(2), param_id_estudiante INT) RETURNS BOOLEAN
