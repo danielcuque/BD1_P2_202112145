@@ -706,11 +706,24 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS historialTransacciones;
 DELIMITER $$
-CREATE PROCEDURE historialTransacciones(
-    IN in_fecha_inicio DATE,
-    IN in_fecha_fin DATE
+CREATE PROCEDURE historialTransacciones()
+BEGIN
+    SELECT
+        fecha_hora AS 'Fecha y hora',
+        descripcion AS 'Descripcion',
+        tipo_transaccion AS 'Tipo de transaccion'
+    FROM HistorialTransacciones;
+end; $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS insertarTransaccion;
+DELIMITER $$
+CREATE PROCEDURE insertarTransaccion(
+    IN in_descripcion VARCHAR(100),
+    IN in_tipo_transaccion VARCHAR(50)
 )
 BEGIN
-
-end; $$
+    INSERT INTO HistorialTransacciones(fecha_hora, descripcion, tipo_transaccion)
+    VALUES (NOW(), in_descripcion, in_tipo_transaccion);
+END; $$
 DELIMITER ;

@@ -428,4 +428,6 @@ CALL consultarDesasignacion(
     '1S',
     2023,
     'A'
-)
+);
+
+CALL historialTransacciones();
