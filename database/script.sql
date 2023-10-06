@@ -52,21 +52,22 @@ CREATE TABLE IF NOT EXISTS CursoHabilitado(
     registro_siif INT NOT NULL,
     cupo_maximo INT NOT NULL,
     seccion CHAR NOT NULL,
-    fecha_creacion DATE NOT NULL,
+    fecha_actual INT NOT NULL,
     cantidad_inscritos INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS HorarioCurso(
     id_horario_curso INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_curso_habilitado INT NOT NULL,
-    dia VARCHAR(10) NOT NULL,
-    horario VARCHAR(10) NOT NULL
+    dia INT NOT NULL,
+    horario VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS AsignacionCurso(
     id_asignacion_curso INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_curso_habilitado INT NOT NULL,
-    carnet_estudiante BIGINT(9) NOT NULL
+    carnet_estudiante BIGINT(9) NOT NULL,
+    estado BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Nota(

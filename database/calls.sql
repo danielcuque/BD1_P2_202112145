@@ -247,4 +247,77 @@ CALL habilitarCurso(
     'B'
 );
 
-CALL consultarPensum(1)
+CALL habilitarCurso(
+    6,
+    '1S',
+    102,
+    60,
+    'C'
+);
+
+CALL habilitarCurso(
+    39,
+    '1S',
+    103,
+    110,
+    'A'
+);
+
+/*  */
+
+CALL agregarHorario(
+    1,
+    1,
+    '9:00-10:40'
+);
+
+CALL agregarHorario(
+    1,
+    2,
+    '9:50-11:30'
+);
+
+CALL agregarHorario(
+    2,
+    7,
+    '19:00-20:40'
+);
+
+CALL agregarHorario(
+    2,
+    3,
+    '19:00-20:40'
+);
+
+CALL agregarHorario(
+    3,
+    4,
+    '7:00-8:40'
+);
+
+CALL agregarHorario(
+    3,
+    5,
+    '7:50-9:30'
+);
+
+CALL agregarHorario(
+    4,
+    6,
+    '15:00-16:40'
+);
+
+CALL agregarHorario(
+    4,
+    7,
+    '15:50-17:30'
+);
+
+/*  */
+
+CALL asignarCurso(
+    348,
+    '1S',
+    'A',
+    202112145
+);

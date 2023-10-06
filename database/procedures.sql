@@ -36,7 +36,6 @@ BEGIN
     COMMIT;
 
     SELECT 'Estudiante creado exitosamente' AS message;
-    SELECT * FROM Estudiante;
 
 END;
 $$
@@ -89,7 +88,7 @@ BEGIN
     COMMIT;
 
     SELECT 'Docente creado exitosamente' AS message;
-    SELECT * FROM Docente;
+
 END;
 $$
 DELIMITER ;
@@ -164,8 +163,8 @@ BEGIN
 
     START TRANSACTION ;
 
-    INSERT INTO CursoHabilitado(id_curso, ciclo, registro_siif, cupo_maximo, seccion, fecha_creacion, cantidad_inscritos)
-    VALUES (in_id_curso, in_ciclo, in_id_docente, in_cupo_maximo, in_seccion, NOW(), 0);
+    INSERT INTO CursoHabilitado(id_curso, ciclo, registro_siif, cupo_maximo, seccion, fecha_actual, cantidad_inscritos)
+    VALUES (in_id_curso, in_ciclo, in_id_docente, in_cupo_maximo, in_seccion, YEAR(NOW()), 0);
 
     COMMIT;
 END;
@@ -196,18 +195,11 @@ BEGIN
     START TRANSACTION;
     INSERT INTO HorarioCurso(id_curso_habilitado,dia, horario)
     VALUES (in_id_curso_habilitado, in_dia_semana, in_horario);
+
+    COMMIT;
 END;
 $$
 DELIMITER ;
-
-/*
-    Verificar que el alumno exista
-    Verificar que el alumno no este asignado al mismo curso, en la misma seccion, en el mismo ciclo
-    Verificar que el alumno tenga los creditos necesarios para inscribirse al curso
-    Verificar que la clase a la que el alumno se quiere inscribir no este llena
-    Verificar que el curso exista
-    Verificar que el curso pertecezca a la carrera del alumno o area comun
-*/
 
 DROP PROCEDURE IF EXISTS asignarCurso;
 DELIMITER $$
@@ -228,7 +220,7 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
     END IF;
 
-    IF NOT CursoHabilitadoExisteID(in_id_curso) THEN
+    IF NOT (SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = in_id_curso AND ciclo = in_ciclo AND seccion = in_seccion) THEN
         SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso, ' no existe');
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
     END IF;
@@ -242,7 +234,7 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ciclo no es válido';
     END IF;
 
-    IF CursoHabilitadoLleno(in_id_curso, in_seccion, in_ciclo) THEN
+    IF CursoHabilitadoLleno(in_id_curso, in_ciclo, in_seccion) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El curso habilitado esta lleno';
     END IF;
 
@@ -331,10 +323,9 @@ END;
 $$
 DELIMITER ;
 
-
 DROP PROCEDURE IF EXISTS consultarDocente;
 DELIMITER $$
-CREATE PROCEDURE consultarDocnente(
+CREATE PROCEDURE consultarDocente(
     IN in_siif INT
 )
 BEGIN
@@ -358,7 +349,62 @@ $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS consultarAsignados;
+DELIMITER $$
+CREATE PROCEDURE consultarAsignados(
+    IN in_carnet BIGINT(9),
+    IN in_ciclo VARCHAR(50),
+    IN in_year INT,
+    IN seccion CHAR(1)
+)
+BEGIN
+
+end; $$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS consultarAprobacion;
+DELIMITER $$
+CREATE PROCEDURE consultarAprobacion(
+    IN in_id_curso INT,
+    IN in_ciclo VARCHAR(20),
+    IN in_year INT,
+    IN in_seccion CHAR(1)
+)
+BEGIN
+
+end; $$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS consultarActas;
+DELIMITER $$
+CREATE PROCEDURE consultarActas(
+    IN in_id_curso INT
+)
+BEGIN
+
+end; $$
+DELIMITER ;
+
+
 DROP PROCEDURE IF EXISTS consultarDesasignacion;
+DELIMITER $$
+CREATE PROCEDURE consultarDesasignacion(
+    IN in_id_curso INT,
+    IN in_ciclo VARCHAR(20),
+    IN in_year INT,
+    IN in_seccion CHAR(1)
+)
+BEGIN
+
+end; $$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS historialTransacciones;
+DELIMITER $$
+CREATE PROCEDURE historialTransacciones(
+    IN in_fecha_inicio DATE,
+    IN in_fecha_fin DATE
+)
+BEGIN
+
+end; $$
+DELIMITER ;

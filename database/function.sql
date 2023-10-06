@@ -50,14 +50,17 @@ BEGIN
     DECLARE LLENO BOOLEAN DEFAULT FALSE;
     DECLARE cupo INT DEFAULT 0;
     DECLARE inscritos INT DEFAULT 0;
+    DECLARE curso_habilitado INT DEFAULT 0;
 
-    SELECT cupo INTO cupo
-    FROM CursoHabilitado
-    WHERE id_curso = param_id_curso AND ciclo = param_ciclo AND seccion = param_seccion;
+    SET curso_habilitado = ObtenerCursoHabilitado(param_id_curso, param_seccion, param_ciclo);
 
     SELECT COUNT(*) INTO inscritos
+    FROM AsignacionCurso
+    WHERE id_curso_habilitado = curso_habilitado;
+
+    SELECT cupo_maximo INTO cupo
     FROM CursoHabilitado
-    WHERE id_curso = param_id_curso AND ciclo = param_ciclo AND seccion = param_seccion;
+    WHERE id_curso_habilitado = curso_habilitado;
 
     IF (inscritos >= cupo) THEN
         SET LLENO = TRUE;
@@ -129,11 +132,11 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS CursoHabilitadoExisteID;
 DELIMITER $$
-CREATE FUNCTION CursoHabilitadoExisteID (param_id_curso INT) RETURNS BOOLEAN
+CREATE FUNCTION CursoHabilitadoExisteID (param_id_curso_habilitado INT) RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
     DECLARE EXISTE BOOLEAN DEFAULT FALSE;
-    IF (SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = param_id_curso) > 0 THEN
+    IF (SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso_habilitado = param_id_curso_habilitado) > 0 THEN
         SET EXISTE = TRUE;
     END IF;
     RETURN EXISTE;
@@ -221,6 +224,25 @@ END;
 $$
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS ObtenerCursoHabilitado;
+DELIMITER $$
+CREATE FUNCTION ObtenerCursoHabilitado (
+    param_id_curso INT,
+    param_seccion CHAR,
+    param_ciclo VARCHAR(2)
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE idCursoHabilitado INT DEFAULT 0;
+    SELECT id_curso_habilitado INTO idCursoHabilitado
+    FROM CursoHabilitado
+    WHERE id_curso = param_id_curso AND seccion = param_seccion AND ciclo = param_ciclo and fecha_actual = YEAR(NOW());
+    RETURN idCursoHabilitado;
+END;
+$$
+DELIMITER ;
+
 DROP FUNCTION IF EXISTS SafeInput;
 DELIMITER $$
 CREATE FUNCTION SafeInput (input VARCHAR(1000)) RETURNS BOOLEAN
@@ -246,7 +268,6 @@ BEGIN
     END IF;
     RETURN EXISTE;
 END;
-
 $$
 DELIMITER ;
 
