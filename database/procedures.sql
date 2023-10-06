@@ -240,7 +240,7 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El curso habilitado esta lleno';
     END IF;
 
-    IF EstudianteInscrito(in_id_curso, in_seccion, in_ciclo, in_carnet) THEN
+    IF EstudianteInscrito(in_id_curso, in_ciclo, in_carnet) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El estudiante ya esta asignado a este curso';
     END IF;
 

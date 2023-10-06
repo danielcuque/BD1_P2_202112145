@@ -146,11 +146,25 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS EstudianteInscrito;
 DELIMITER $$
-CREATE FUNCTION EstudianteInscrito (param_id_curso INT, param_seccion CHAR, param_ciclo VARCHAR(2), param_id_estudiante INT) RETURNS BOOLEAN
+CREATE FUNCTION EstudianteInscrito (param_id_curso INT,  param_ciclo VARCHAR(2), param_id_estudiante INT) RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
+    -- Check if student is already enrolled in the course in the current cycle
+
     DECLARE INSCRITO BOOLEAN DEFAULT FALSE;
-    IF (SELECT COUNT(*) FROM AsignacionCurso WHERE id_curso_habilitado = (SELECT id_curso_habilitado FROM CursoHabilitado WHERE id_curso = param_id_curso AND seccion = param_seccion AND ciclo = param_ciclo) AND carnet_estudiante = param_id_estudiante) > 0 THEN
+    DECLARE contador INT DEFAULT 0;
+
+    SELECT COUNT(*) INTO contador
+    FROM AsignacionCurso AS AC
+    WHERE
+    AC.carnet_estudiante = param_id_estudiante
+    AND AC.id_curso_habilitado IN (
+        SELECT id_curso_habilitado
+        FROM CursoHabilitado
+        WHERE id_curso = param_id_curso AND ciclo = param_ciclo
+    );
+
+    IF (contador > 0) THEN
         SET INSCRITO = TRUE;
     END IF;
 
