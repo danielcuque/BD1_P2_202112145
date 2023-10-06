@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS AsignacionCurso(
     id_asignacion_curso INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_curso_habilitado INT NOT NULL,
     carnet_estudiante BIGINT(9) NOT NULL,
-    estado BOOLEAN NOT NULL
+    calificado BOOLEAN NOT NULL,
+    asignado BOOLEAN NOT NULL
 );
 
 

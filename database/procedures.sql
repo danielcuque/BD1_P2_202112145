@@ -256,8 +256,8 @@ BEGIN
 
     START TRANSACTION;
 
-    INSERT INTO AsignacionCurso(id_curso_habilitado, carnet_estudiante, estado)
-    VALUES (idCursoHabilitado, in_carnet, TRUE);
+    INSERT INTO AsignacionCurso(id_curso_habilitado, carnet_estudiante, calificado, asignado)
+    VALUES (idCursoHabilitado, in_carnet, FALSE, TRUE);
 
     UPDATE CursoHabilitado
     SET cantidad_inscritos = cantidad_inscritos + 1
@@ -316,7 +316,7 @@ BEGIN
     START TRANSACTION;
 
     UPDATE AsignacionCurso
-    SET estado = FALSE
+    SET asignado = FALSE
     WHERE id_curso_habilitado = idCursoHabilitado AND carnet_estudiante = in_carnet;
 
     UPDATE CursoHabilitado
@@ -408,12 +408,57 @@ BEGIN
         WHERE carnet = in_carnet;
     END IF;
 
+    UPDATE AsignacionCurso
+    SET calificado = TRUE
+    WHERE id_asignacion_curso = idAsignacionCurso AND carnet_estudiante = in_carnet;
+
     COMMIT;
 
 END; $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS generarActa;
+DELIMITER $$
+CREATE PROCEDURE generarActa(
+    IN in_id_curso INT,
+    IN in_ciclo VARCHAR(50),
+    IN in_seccion CHAR(1)
+)
+BEGIN
+    -- Verificar que el estado de todos los estudiantes sea calificado en la tabla AsignacionCurso
+    -- Si no es así, lanzar error
+
+    IF NOT CursoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT ValidarCiclo(in_ciclo) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ciclo no es válido';
+    END IF;
+
+    IF NOT SeccionExisteID(in_seccion, in_id_curso) THEN
+        SET @custom_message = CONCAT('La sección ', in_seccion, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT CursoHabilitadoExiste(in_id_curso, in_ciclo, in_seccion) THEN
+        SET @custom_message = CONCAT('El curso habilitado con id ', in_id_curso, ' no existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
+    IF NOT TodosLosAlumnosEstanCalificados(ObtenerCursoHabilitado(in_id_curso, in_seccion, in_ciclo)) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No todos los alumnos estan calificados';
+    END IF;
+
+    START TRANSACTION ;
+
+    INSERT INTO Acta(id_curso_habilitado, ciclo, fecha) VALUES (ObtenerCursoHabilitado(in_id_curso, in_seccion, in_ciclo), in_ciclo, NOW());
+
+    COMMIT;
+
+END; $$
+DELIMITER ;
 
 -- Getters
 

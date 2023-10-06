@@ -85,6 +85,21 @@ END;
 $$
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS CursoHabilitadoExiste;
+DELIMITER $$
+CREATE FUNCTION CursoHabilitadoExiste (param_id_curso INT, param_ciclo VARCHAR(2), param_seccion CHAR) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE EXISTE BOOLEAN DEFAULT FALSE;
+    IF (SELECT COUNT(*) FROM CursoHabilitado WHERE id_curso = param_id_curso AND ciclo = param_ciclo AND seccion = param_seccion) > 0 THEN
+        SET EXISTE = TRUE;
+    END IF;
+    RETURN EXISTE;
+END;
+$$
+DELIMITER ;
+
+
 DROP FUNCTION IF EXISTS DocenteExisteSIIF;
 DELIMITER $$
 CREATE FUNCTION DocenteExisteSIIF (param_siif INT) RETURNS BOOLEAN
@@ -95,6 +110,32 @@ BEGIN
         SET EXISTE = TRUE;
     END IF;
     RETURN EXISTE;
+END;
+$$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS TodosLosAlumnosEstanCalificados;
+DELIMITER $$
+CREATE FUNCTION TodosLosAlumnosEstanCalificados (param_id_curso_habilitado INT) RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+    DECLARE TODOS_CALIFICADOS BOOLEAN DEFAULT FALSE;
+    DECLARE inscritos INT DEFAULT 0;
+    DECLARE calificados INT DEFAULT 0;
+
+    SELECT cantidad_inscritos INTO inscritos
+    FROM CursoHabilitado
+    WHERE id_curso_habilitado = param_id_curso_habilitado;
+
+    SELECT COUNT(*) INTO calificados
+    FROM AsignacionCurso
+    WHERE id_curso_habilitado = param_id_curso_habilitado AND calificado = 1;
+
+    IF (inscritos = calificados) THEN
+        SET TODOS_CALIFICADOS = TRUE;
+    END IF;
+
+    RETURN TODOS_CALIFICADOS;
 END;
 $$
 DELIMITER ;
@@ -166,7 +207,7 @@ BEGIN
 
     DECLARE ACTIVO BOOLEAN DEFAULT FALSE;
 
-    IF (SELECT estado FROM AsignacionCurso WHERE id_curso_habilitado = param_curso_habilitado AND carnet_estudiante = param_id_estudiante) = 1 THEN
+    IF (SELECT asignado FROM AsignacionCurso WHERE id_curso_habilitado = param_curso_habilitado AND carnet_estudiante = param_id_estudiante) = 1 THEN
         SET ACTIVO = TRUE;
     END IF;
 
@@ -329,7 +370,6 @@ BEGIN
 END;
 $$
 DELIMITER ;
-
 
 DROP FUNCTION IF EXISTS SafeInput;
 DELIMITER $$

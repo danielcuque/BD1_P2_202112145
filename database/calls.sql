@@ -313,13 +313,20 @@ CALL agregarHorario(
     '15:50-17:30'
 );
 
-/*  */
+/* Asignaciones  */
 
 CALL asignarCurso(
     348,
     '1S',
     'A',
     202112145
+);
+
+CALL asignarCurso(
+    348,
+    '1S',
+    'A',
+    202112146
 );
 
 CALL asignarCurso(
@@ -361,5 +368,19 @@ CALL ingresarNota(
     'C',
     202112145,
     50
+);
+
+CALL ingresarNota(
+    348,
+    '1S',
+    'A',
+    202112146,
+    100
+);
+
+CALL generarActa(
+    348,
+    '1S',
+    'A'
 );
 
