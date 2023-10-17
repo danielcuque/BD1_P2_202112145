@@ -55,7 +55,7 @@ CALL registrarEstudiante(
     '78901234',
     'Ciudad Guatemala',
     3056789012345,
-    3
+    2
 );
 
 
@@ -80,7 +80,7 @@ CALL registrarEstudiante(
     '87650987',
     'Quetzaltenango',
     3023456789012,
-    2
+    3
 );
 
 CALL registrarEstudiante(
@@ -92,7 +92,7 @@ CALL registrarEstudiante(
     '89012345',
     'Antigua Guatemala',
     3012345678901,
-    3
+    4
 );
 
 CALL registrarEstudiante(
@@ -104,7 +104,7 @@ CALL registrarEstudiante(
     '67890123',
     'Quetzaltenango',
     3023456789012,
-    2
+    4
 );
 
 CALL registrarEstudiante(
@@ -141,6 +141,7 @@ CALL registrarDocente('Miguel', 'Hernández', '1982-02-28', 'miguel.hernandez@em
 
 -- Calls to create a new course
 
+-- Area común
 CALL crearCurso(
     348,
     'QUIMICA GENERAL 1',
@@ -186,6 +187,8 @@ CALL crearCurso(
     TRUE
 );
 
+-- Ingenieria en Ciencias y Sistemas
+
 CALL crearCurso(
     960,
     'MATEMATICA PARA COMPUTACION 1',
@@ -227,9 +230,150 @@ CALL crearCurso(
     'LENGUAJES FORMALES Y DE PROGRAMACION',
     33,
     3,
-    3,
-    FALSE
+    1,
+    TRUE
 );
+
+-- Ingenieria Industrial
+
+CALL crearCurso(
+    170,
+    'MECANICA ANALITICA 1',
+    0,
+    5,
+    2,
+    TRUE
+);
+
+CALL crearCurso(
+    632,
+    'INGENIERIA DE PLANTAS',
+    0,
+    6,
+    2,
+    TRUE
+);
+
+CALL crearCurso(
+    662,
+    'LEGISLACION 1',
+    0,
+    2,
+    2,
+    TRUE
+);
+
+CALL crearCurso(
+    390,
+    'TERMODINAMICA 1',
+    0,
+    5,
+    2,
+    TRUE
+);
+
+CALL crearCurso(
+    660,
+    'MERCADOTECNIA 1',
+    0,
+    3,
+    2,
+    TRUE
+);
+
+-- Ingenieria Mecanica
+
+CALL crearCurso(
+    250,
+    'MECANICA DE FLUIDOS',
+    0,
+    6,
+    3,
+    TRUE
+);
+
+CALL crearCurso(
+    506,
+    'PLANTAS DE VAPOR',
+    0,
+    5,
+    3,
+    TRUE
+);
+
+CALL crearCurso(
+    530,
+    'MECANISMOS',
+    0,
+    3,
+    3,
+    TRUE
+);
+
+CALL crearCurso(
+    526,
+    'MAQUINAS 2',
+    0,
+    6,
+    3,
+    TRUE
+);
+
+CALL crearCurso(
+    532,
+    'VIBRACIONES',
+    0,
+    5,
+    3,
+    TRUE
+);
+
+-- Ingenieria Civil
+
+CALL crearCurso(
+    28,
+    'ECOLOGIA',
+    0,
+    3,
+    4,
+    TRUE
+);
+
+CALL crearCurso(
+    80,
+    'TOPOGRAFIA 1',
+    0,
+    6,
+    4,
+    TRUE
+);
+CALL crearCurso(
+    82,
+    'TOPOGRAFIA 2',
+    0,
+    6,
+    4,
+    TRUE
+);
+CALL crearCurso(
+    455,
+    'MATERIALES DE CONSTRUCCION 2',
+    0,
+    6,
+    4,
+    TRUE
+);
+CALL crearCurso(
+    458,
+    'MECANICA DE SUELOS 1',
+    0,
+    5,
+    4,
+    TRUE
+);
+
+
+-- Cursos habilitados
 
 CALL habilitarCurso(
     348,
@@ -263,7 +407,7 @@ CALL habilitarCurso(
     'A'
 );
 
-/*  */
+/* Horarios de cursos habilitados  */
 
 CALL agregarHorario(
     1,
@@ -395,10 +539,19 @@ CALL generarActa(
 /* GETTERS */
 CALL consultarPensum(1);
 CALL consultarPensum(2);
+CALL consultarPensum(3);
+CALL consultarPensum(4);
 
 CALL consultarEstudiante(202112145);
+CALL consultarEstudiante(202112146);
+CALL consultarEstudiante(202112147);
+CALL consultarEstudiante(202112148);
+CALL consultarEstudiante(202112149);
 
 CALL consultarDocente(101);
+CALL consultarDocente(102);
+CALL consultarDocente(103);
+CALL consultarDocente(104);
 
 CALL consultarAsignados(
     348,

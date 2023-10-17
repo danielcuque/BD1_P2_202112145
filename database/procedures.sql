@@ -108,6 +108,11 @@ BEGIN
     DECLARE idCarrera INT DEFAULT 1;
     SET idCarrera = FormatIDCarrera(in_id_carrera);
 
+    IF CursoExisteID(in_id_curso) THEN
+        SET @custom_message = CONCAT('El curso con id ', in_id_curso, ' ya existe');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
+    END IF;
+
     IF NOT CarreraExisteID(idCarrera) THEN
         SET @custom_message = CONCAT('La carrera con id ', in_id_carrera, ' no existe');
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @custom_message;
