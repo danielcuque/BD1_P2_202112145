@@ -740,3 +740,36 @@ BEGIN
     VALUES (NOW(), in_descripcion, in_tipo_transaccion);
 END; $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS DropDataTables;
+DELIMITER $$
+CREATE PROCEDURE DropDataTables()
+BEGIN
+    -- Delete data with a DELETE
+    DELETE FROM HistorialTransacciones WHERE 1=1;
+
+    -- Reset autoincrement
+    DELETE FROM Nota WHERE 1=1;
+    ALTER TABLE Nota AUTO_INCREMENT = 1;
+
+    DELETE FROM Acta WHERE 1=1;
+    ALTER TABLE Acta AUTO_INCREMENT = 1;
+
+    DELETE FROM AsignacionCurso WHERE 1=1;
+    ALTER TABLE AsignacionCurso AUTO_INCREMENT = 1;
+
+    DELETE FROM HorarioCurso WHERE 1=1;
+    ALTER TABLE HorarioCurso AUTO_INCREMENT = 1;
+
+    DELETE FROM CursoHabilitado WHERE 1=1;
+    ALTER TABLE CursoHabilitado AUTO_INCREMENT = 1;
+
+    DELETE FROM Curso WHERE 1=1;
+    DELETE FROM Estudiante WHERE 1=1;
+    DELETE FROM Docente WHERE 1=1;
+
+    DELETE FROM Carrera WHERE 1=1;
+    ALTER TABLE Carrera AUTO_INCREMENT = 1;
+
+END; $$
+DELIMITER ;

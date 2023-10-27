@@ -1,4 +1,5 @@
 USE Proyecto2;
+CALL DropDataTables();
 
 CALL crearCarrera('Area Comun');
 CALL crearCarrera('Ingenieria Civil');       -- 1  VALIDAR QUE LES QUEDE ESTE ID EN LA CARRERA CORRESPONDIENTE
@@ -76,3 +77,340 @@ CALL crearCurso(422,'Curso Electronica 2',4,4,4,true);
 CALL crearCurso(423,'Curso Electronica 3',8,4,4,false);
 CALL crearCurso(424,'Curso Electronica 4',12,4,4,true);
 CALL crearCurso(425,'Curso Electronica 5',16,4,4,true);
+
+-- Comun
+CALL habilitarCurso(
+    0006,
+    '1S',
+    1,
+    110,
+    'A'
+);
+-- Sistemas
+CALL habilitarCurso(
+    770,
+    '1S',
+    2,
+    110,
+    'B'
+);
+
+CALL habilitarCurso(
+    796,
+    '1S',
+    2,
+    110,
+    'A'
+);
+
+
+-- Civil
+CALL habilitarCurso(
+    321,
+    '1S',
+    3,
+    60,
+    'C'
+);
+
+-- Industrial
+CALL habilitarCurso(
+    123,
+    '1S',
+    4,
+    110,
+    'A'
+);
+
+-- Electronica
+CALL habilitarCurso(
+    421,
+    '1S',
+    4,
+    110,
+    'A'
+);
+
+/* Agregar horarios */
+
+-- Comun
+CALL agregarHorario(
+    1,
+    1,
+    '9:00-10:40'
+);
+
+
+CALL agregarHorario(
+    1,
+    2,
+    '9:50-11:30'
+);
+-- Sistemas
+CALL agregarHorario(
+    2,
+    7,
+    '19:00-20:40'
+);
+
+
+CALL agregarHorario(
+    2,
+    3,
+    '19:00-20:40'
+);
+
+-- Civil
+
+CALL agregarHorario(
+    3,
+    4,
+    '7:00-8:40'
+);
+
+CALL agregarHorario(
+    3,
+    5,
+    '7:50-9:30'
+);
+-- Industrial
+CALL agregarHorario(
+    4,
+    6,
+    '15:00-16:40'
+);
+
+CALL agregarHorario(
+    4,
+    7,
+    '15:50-17:30'
+);
+
+-- Electronica
+CALL agregarHorario(
+    5,
+    7,
+    '15:50-17:30'
+);
+
+/* Asignaciones  */
+
+-- Sistemas
+CALL asignarCurso(
+    770,
+    '1S',
+    'B',
+    202000001
+);
+
+CALL asignarCurso(
+    796,
+    '1S',
+    'A',
+    202000001
+);
+
+
+-- Civil
+CALL asignarCurso(
+    321,
+    '1S',
+    'C',
+    202100001
+);
+
+-- Industrial
+CALL asignarCurso(
+    123,
+    '1S',
+    'A',
+    202200001
+);
+
+-- Electronica
+CALL asignarCurso(
+    421,
+    '1S',
+    'A',
+    202300001
+);
+
+CALL asignarCurso(
+    421,
+    '1S',
+    'A',
+    202300002
+);
+
+/* Desasignaciones */
+
+CALL desasignarCurso(
+    421,
+    '1S',
+    'A',
+    202300002
+);
+
+/* Ingreso de notas */
+
+-- Sistemas
+CALL ingresarNota(
+    770,
+    '1S',
+    'B',
+    202000001,
+    100
+);
+
+CALL ingresarNota(
+    796,
+    '1S',
+    'A',
+    202000001,
+    100
+);
+
+-- Civil
+CALL ingresarNota(
+    321,
+    '1S',
+    'C',
+    202100001,
+    50
+);
+-- Industrial
+CALL ingresarNota(
+    123,
+    '1S',
+    'A',
+    202200001,
+    97
+);
+
+-- Electronica
+CALL ingresarNota(
+    421,
+    '1S',
+    'A',
+    202300001,
+    62
+);
+
+/* Generar actas */
+
+-- Sistemas
+CALL generarActa(
+    770,
+    '1S',
+    'B'
+);
+
+CALL generarActa(
+    796,
+    '1S',
+    'A'
+);
+
+-- Civil
+CALL generarActa(
+    321,
+    '1S',
+    'C'
+);
+
+-- Industrial
+CALL generarActa(
+    123,
+    '1S',
+    'A'
+);
+
+-- Electronica
+CALL generarActa(
+    421,
+    '1S',
+    'A'
+);
+
+/* GETTERS */
+CALL consultarPensum(1);
+CALL consultarPensum(2);
+CALL consultarPensum(3);
+CALL consultarPensum(4);
+
+CALL consultarEstudiante(202000001);
+CALL consultarEstudiante(202000002);
+CALL consultarEstudiante(202000003);
+CALL consultarEstudiante(202100001);
+CALL consultarEstudiante(202200001);
+CALL consultarEstudiante(202200002);
+CALL consultarEstudiante(202300001);
+CALL consultarEstudiante(202300002);
+CALL consultarEstudiante(201710160);
+CALL consultarEstudiante(201710161);
+
+CALL consultarDocente(1);
+CALL consultarDocente(2);
+CALL consultarDocente(3);
+CALL consultarDocente(4);
+CALL consultarDocente(5);
+
+-- Sistemas
+CALL consultarAsignados(
+    770,
+    '1S',
+    2023,
+    'B'
+);
+
+CALL consultarAsignados(
+    796,
+    '1S',
+    2023,
+    'A'
+);
+
+-- Civil
+CALL consultarAsignados(
+    321,
+    '1S',
+    2023,
+    'C'
+);
+
+-- Industrial
+CALL consultarAsignados(
+    123,
+    '1S',
+    2023,
+    'A'
+);
+
+-- Electronica
+CALL consultarAsignados(
+    421,
+    '1S',
+    2023,
+    'A'
+);
+
+/* Consultar aprobaciones */
+
+-- Sistemas
+CALL consultarAprobacion(
+    770,
+    '1S',
+    2023,
+    'B'
+);
+
+CALL consultarActas(770);
+
+CALL consultarDesasignacion(
+    421,
+    '1S',
+    2023,
+    'A'
+);
+
+CALL historialTransacciones();
