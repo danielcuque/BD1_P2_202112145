@@ -6,7 +6,7 @@ CREATE PROCEDURE registrarEstudiante(
     IN in_carnet BIGINT(9),
     IN in_nombre VARCHAR(50),
     IN in_apellido VARCHAR(50),
-    IN in_fecha_nacimiento DATE,
+    IN in_fecha_nacimiento VARCHAR(50),
     IN in_correo VARCHAR(50),
     IN in_telefono VARCHAR(8),
     IN in_direccion VARCHAR(100),
@@ -16,6 +16,7 @@ CREATE PROCEDURE registrarEstudiante(
 BEGIN
 
     DECLARE idCarrera INT DEFAULT 1;
+    DECLARE fechaFormateada DATE DEFAULT '1980-03-10';
 
     SET idCarrera = FormatIDCarrera(in_id_carrera);
 
@@ -28,10 +29,12 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El correo no es valido';
     END IF;
 
+    SET fechaFormateada = FormatFecha(in_fecha_nacimiento);
+
     START TRANSACTION;
 
     INSERT INTO Estudiante(carnet, nombre, apellido, fecha_nacimiento, correo, telefono, direccion, dpi, id_carrera, creditos, fecha_creacion)
-    VALUES (in_carnet, in_nombre, in_apellido, in_fecha_nacimiento, in_correo, in_telefono, in_direccion, in_dpi, idCarrera, 0, NOW());
+    VALUES (in_carnet, in_nombre, in_apellido, fechaFormateada, in_correo, in_telefono, in_direccion, in_dpi, idCarrera, 0, NOW());
 
     COMMIT;
 
@@ -68,7 +71,7 @@ DELIMITER $$
 CREATE PROCEDURE registrarDocente(
     IN in_nombre VARCHAR(50),
     IN in_apellido VARCHAR(50),
-    IN in_fecha_nacimiento DATE,
+    IN in_fecha_nacimiento VARCHAR(50),
     IN in_correo VARCHAR(50),
     IN in_telefono VARCHAR(8),
     IN in_direccion VARCHAR(100),
@@ -76,14 +79,19 @@ CREATE PROCEDURE registrarDocente(
     IN in_siif INT
 )
 BEGIN
+
+    DECLARE fecha_formateada DATE DEFAULT '1980-03-10';
+
    IF NOT ValidateEmail(in_correo) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El correo no es válido';
     END IF;
 
+    SET fecha_formateada = FormatFecha(in_fecha_nacimiento);
+
     START TRANSACTION;
 
     INSERT INTO Docente(nombre, apellido, fecha_nacimiento, correo, telefono, direccion, dpi, registro_siif, fecha_creacion)
-    VALUES (in_nombre, in_apellido, in_fecha_nacimiento, in_correo, in_telefono, in_direccion, in_dpi, in_siif, NOW());
+    VALUES (in_nombre, in_apellido, fecha_formateada, in_correo, in_telefono, in_direccion, in_dpi, in_siif, NOW());
 
     COMMIT;
 

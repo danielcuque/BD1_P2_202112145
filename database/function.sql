@@ -298,6 +298,19 @@ END;
 $$
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS FormatFecha;
+DELIMITER $$
+
+CREATE FUNCTION FormatFecha (param_fecha VARCHAR(25)) RETURNS DATE
+DETERMINISTIC
+BEGIN
+    DECLARE fecha DATE DEFAULT '1980-03-10';
+    SET fecha = STR_TO_DATE(param_fecha, '%d-%m-%Y');
+    RETURN fecha;
+END;
+$$
+DELIMITER ;
+
 DROP FUNCTION IF EXISTS FormatIDCarrera;
 DELIMITER $$
 CREATE FUNCTION FormatIDCarrera (param_id_carrera INT) RETURNS INT
